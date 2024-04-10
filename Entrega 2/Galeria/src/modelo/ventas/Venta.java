@@ -1,6 +1,7 @@
 package modelo.ventas;
 
 import modelo.inventario.Pieza;
+import modelo.perfiles.Administrador;
 import modelo.perfiles.Comprador;
 
 public class Venta {
