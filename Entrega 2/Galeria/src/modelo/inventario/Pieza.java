@@ -6,7 +6,7 @@ import modelo.perfiles.Propietario;
 
 public abstract class Pieza {
 
-	protected int id;
+	protected int idPieza;
 
 	protected String titulo;
 

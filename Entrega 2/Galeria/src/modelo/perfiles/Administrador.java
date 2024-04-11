@@ -3,7 +3,7 @@ package modelo.perfiles;
 import modelo.Galeria;
 import modelo.inventario.Pieza;
 
-public class Administrador extends Perfil {
+public class Administrador extends Empleado{
 
 	
 	/*
@@ -11,6 +11,8 @@ public class Administrador extends Perfil {
 	 */
 	
 	private Galeria galeria;
+	
+	private Perfil perfil;
 	
 	/*
 	 * Constructor 
