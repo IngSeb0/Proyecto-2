@@ -2,6 +2,7 @@ package modelo.subastas;
 
 import java.util.ArrayList;
 
+import modelo.inventario.Pieza;
 import modelo.perfiles.Comprador;
 import modelo.perfiles.Empleado;
 
@@ -29,7 +30,6 @@ public class Subasta {
 		this.operador = operador;
 	}
 	
-	
-	
+
 	
 }

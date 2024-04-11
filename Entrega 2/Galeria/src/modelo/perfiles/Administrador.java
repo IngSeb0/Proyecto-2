@@ -3,7 +3,7 @@ package modelo.perfiles;
 import modelo.Galeria;
 import modelo.inventario.Pieza;
 
-public class Administrador extends Empleado{
+public class Administrador extends Empleado {
 
 	
 	/*
@@ -27,6 +27,7 @@ public class Administrador extends Empleado{
 	 * Gettters
 	 */
 	
+
 	/*
 	 * Métodos
 	 */
@@ -34,6 +35,8 @@ public class Administrador extends Empleado{
 	public void ingresarPieza(Pieza pieza) {
 		galeria.getPiezas().add(pieza);
 	}
+	
+	
 	
 	
 	
