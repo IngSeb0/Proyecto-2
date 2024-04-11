@@ -22,6 +22,8 @@ public class Venta {
 	 * Constructor
 	 */
 	
-	public Venta(Administrador administrador, Pieza pieza)
+	public Venta(Administrador administrador, Pieza pieza) {
+		
+	}
 
 }
