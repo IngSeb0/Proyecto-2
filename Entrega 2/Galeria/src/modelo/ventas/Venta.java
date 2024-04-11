@@ -4,7 +4,7 @@ import modelo.inventario.Pieza;
 import modelo.perfiles.Administrador;
 import modelo.perfiles.Comprador;
 
-public class Venta {
+public class Venta implements Factura {
 	
 	/*
 	 * Atributos
@@ -22,8 +22,11 @@ public class Venta {
 	 * Constructor
 	 */
 	
-	public Venta(Administrador administrador, Pieza pieza) {
+	public Venta(Pieza pieza, Comprador comprador, String fecha) {
 		
+		this.pieza = pieza;
+		this.comprador = comprador;
+		this.fecha = fecha;
 	}
 
 }
