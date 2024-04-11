@@ -1,5 +1,9 @@
 package modelo.persietencia;
 
-public class Persistencia {
+public interface Persistencia {
 
+	public void cargarArchivo();
+	
+	public void leerArchivo();
+	
 }
