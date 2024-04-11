@@ -3,6 +3,10 @@ package modelo.inventario;
 import java.util.ArrayList;
 
 import modelo.perfiles.Propietario;
+import modelo.perfiles.Comprador;
+import modelo.perfiles.Administrador;
+import modelo.ventas.Venta;
+
 
 public abstract class Pieza {
 
@@ -21,14 +25,15 @@ public abstract class Pieza {
 	protected ArrayList<Artista> artista;
 
 	protected Propietario propietario;
+	
 
 
 	/*
 	 * Constructor 
 	 */
 
-	public Pieza(String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Propietario propietario) {
-
+	public Pieza(int idPieza, String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Propietario propietario) {
+		this.idPieza = idPieza;
 		this.titulo = titulo;
 		this.fechaCreacion = fechaCreacion;
 		this.lugarCreacion = lugarCreacion;
@@ -42,7 +47,15 @@ public abstract class Pieza {
 		} 
 
 	}
-
-
-
+	public void vender(Administrador administrador, Comprador comprador, String fecha) {
+        if (disponibilidad)  and (Comprador in ){
+            Venta.realizarVenta(administrador,this, comprador, fecha);
+            disponibilidad= false;
+        } else {
+            System.out.println("La pieza ya no está disponible para la venta.");
+        }
+    }
 }
+
+
+

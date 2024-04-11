@@ -1,4 +1,5 @@
 package modelo.perfiles;
+import modelo.inventario.Pieza;
 
 public class Comprador extends Perfil {
 
@@ -6,7 +7,7 @@ public class Comprador extends Perfil {
 	 * Atributos
 	 */
 	
-	private MetodoPago metodoPago;
+	private String metodoPago;
 	
 	/*
 	 * Constructor
@@ -16,5 +17,8 @@ public class Comprador extends Perfil {
 		super(nombre, apellido, login, password);
 		
 	}
+	 public void comprar(Administrador administrador, Pieza pieza, String fecha) {
+	        pieza.vender(administrador, this, fecha);
+	    }
 }
 
