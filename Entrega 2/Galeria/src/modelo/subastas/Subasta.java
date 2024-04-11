@@ -78,9 +78,6 @@ public class Subasta {
 	public void agregarComprador(Subasta subasta, Comprador comprador) {
 		this.compradoresVerificados.add(comprador);
 	}
-	
-	
-	
 
 	
 }

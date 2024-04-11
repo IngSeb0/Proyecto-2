@@ -40,7 +40,7 @@ public class Administrador extends Empleado {
 	public void VerificarComprador(Subasta subasta, Comprador comprador, int valorMaximoCompras) {
 		
 		comprador.setValorMaximoCompras(valorMaximoCompras);
-		subasta.agregarComprador(comprador);
+		subasta.agregarComprador(subasta, comprador);
 		
 	}
 	

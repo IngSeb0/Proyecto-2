@@ -28,5 +28,9 @@ public class Venta implements Factura {
 		this.comprador = comprador;
 		this.fecha = fecha;
 	}
+	
+	
+	
+	
 
 }

@@ -67,7 +67,6 @@ public class Comprador extends Usuario {
         String fecha = now.format(formatter);
 		
 		Oferta oferta = new Oferta(fecha, pieza, this, bid);
-		subasta.getOfertas().add(oferta);
 		
 		return oferta;
 	}

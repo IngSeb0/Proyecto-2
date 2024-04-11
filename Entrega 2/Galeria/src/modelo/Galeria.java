@@ -23,6 +23,8 @@ public class Galeria {
 
 	private HashMap<String, Perfil> perfiles = new HashMap<String, Perfil>();
 	
+	
+	
 	/*
 	 * Constructor
 	 */
