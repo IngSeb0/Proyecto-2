@@ -1,8 +1,7 @@
 package modelo.perfiles;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import modelo.inventario.Pieza;
 import modelo.subastas.Oferta;
@@ -15,13 +14,21 @@ public class Comprador extends Usuario {
 	 * Atributos
 	 */
 	
-	private ArrayList<Pieza> piezas = new ArrayList<Pieza>();
+	private ArrayList<Pieza> piezasActuales = new ArrayList<Pieza>();
 	
-	private MetodoPago metodoPago;
+	private ArrayList<Pieza> piezasPasadas = new ArrayList<Pieza>();
+	
+	private HashMap<String, String> facturas = new HashMap<String, String>();
+	
+	private MetodoPago metodoPagoActual;
+	
+	private ArrayList<MetodoPago> metodosPago;
 	
 	private int valorMaximoCompras;
 	
-	private int saldoCompras;
+	private int valorTotalCompras;
+	
+	private Subasta subasta;
 	
 	/*
 	 * Constructor
@@ -36,16 +43,28 @@ public class Comprador extends Usuario {
 	 * Getters
 	 */
 
-	public ArrayList<Pieza> getPiezas() {
-		return piezas;
+	public ArrayList<Pieza> getPiezasActuales() {
+		return piezasActuales;
+	}
+	
+	public ArrayList<Pieza> getPiezasPasadas() {
+		return piezasPasadas;
+	}
+	
+	public HashMap<String, String> getFacturas() {
+		return facturas;
 	}
 
-	public MetodoPago getMetodoPago() {
-		return metodoPago;
+	public MetodoPago getMetodoPagoActual() {
+		return metodoPagoActual;
 	}
 
-	public void setMetodoPago(MetodoPago metodoPago) {
-		this.metodoPago = metodoPago;
+	public void setMetodoPagoActual(MetodoPago metodoPago) {
+		this.metodoPagoActual = metodoPago;
+	}
+	
+	public ArrayList<MetodoPago> getMetodosPago() {
+		return metodosPago;
 	}
 
 	public int getValorMaximoCompras() {
@@ -56,19 +75,27 @@ public class Comprador extends Usuario {
 		this.valorMaximoCompras = valorMaximoCompras;
 	}
 	
+	public int getValorTotalCompras() {
+		return valorTotalCompras;
+	}
+	
+	public void setValorTotalCompras(int valorCompra) {
+		this.valorTotalCompras += valorCompra;
+	}
+	
 	/*
 	 * Métodos
 	 */
 	
-	public Oferta hacerOfectar(Subasta subasta, Pieza pieza, int bid) {
+	public void hacerOfectar(Pieza pieza, int bid) {
 		
-		LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String fecha = now.format(formatter);
-		
-		Oferta oferta = new Oferta(fecha, pieza, this, bid);
-		
-		return oferta;
+		if (this.subasta != null) {
+			new Oferta(subasta, pieza, this, bid);
+		}
+	}
+	
+	public void comprarPieza(Pieza pieza) {
+		//TODO
 	}
 	
 }

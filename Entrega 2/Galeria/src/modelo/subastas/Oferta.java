@@ -1,5 +1,8 @@
 package modelo.subastas;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import modelo.inventario.Pieza;
 import modelo.perfiles.Comprador;
 
@@ -21,8 +24,17 @@ public class Oferta {
 	 * Constructor
 	 */
 	
-	public Oferta(String fecha, Pieza pieza, Comprador comprador, int bid) {
+	public Oferta(Subasta subasta, Pieza pieza, Comprador comprador, int bid) {
 		
+		LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String fecha = now.format(formatter);
+        
+        this.fecha = fecha;
+        this.pieza = pieza;
+        this.bid = bid;
+        this.bidder = comprador;
+        subasta.getOfertas().add(this);
 	}
 
 	/*
@@ -33,42 +45,16 @@ public class Oferta {
 		return fecha;
 	}
 
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-
 	public Pieza getPieza() {
 		return pieza;
 	}
-
-
-	public void setPieza(Pieza pieza) {
-		this.pieza = pieza;
-	}
-
 
 	public int getBid() {
 		return bid;
 	}
 
-
-	public void setBid(int bid) {
-		this.bid = bid;
-	}
-
-
 	public Comprador getBidder() {
 		return bidder;
 	}
 
-
-	public void setBidder(Comprador bidder) {
-		this.bidder = bidder;
-	}
-	
-	
-	
-	
 }

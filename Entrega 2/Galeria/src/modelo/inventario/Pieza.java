@@ -38,7 +38,7 @@ public abstract class Pieza {
 	 * Constructor 
 	 */
 
-	public Pieza(String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Propietario propietario) {
+	public Pieza(String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Comprador propietario) {
 
 		this.titulo = titulo;
 		this.fechaCreacion = fechaCreacion;

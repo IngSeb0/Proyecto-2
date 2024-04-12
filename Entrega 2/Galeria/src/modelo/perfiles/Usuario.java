@@ -1,16 +1,14 @@
 package modelo.perfiles;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public abstract class Usuario {
 
 	/*
 	 * Atributos
 	 */
-
-	private static HashMap<String, Usuario> usuarios = new HashMap<>();
+	
+	private static ArrayList<String> logins;
 
 	protected String nombre;
 	
@@ -25,15 +23,19 @@ public abstract class Usuario {
 	 */
 
 	public Usuario(String nombre, String apellido, String login, String password) {
-
-//		if (validarLogin(login)) {
-//            throw new IllegalArgumentException("El usuario '" + login + "' ya está registrado. Intenta con uno diferente.");
-//        }
-//		 validarPassword(password);
-//		 this.login = login;
-//		 this.password = password;
-//		 logins.add(login);
-//		
+		
+		if (validarLogin(login)) {
+            throw new IllegalArgumentException("El usuario " + login + "ya está registrado. Intenta con uno difente");
+		}
+		
+		validarPassword(password);
+	
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.login = login;
+		this.password = password;
+		
+		logins.add(login);
 	}
 
 	/*
@@ -48,9 +50,43 @@ public abstract class Usuario {
 		return password;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public String getApellido() {
+		return nombre;
+	}
+	
 	/*
 	 * Métodos
 	 */
 
+	public static boolean validarLogin(String login) {
+		boolean present = false;
+    	if (logins.contains(login)) {
+    		present = true;
+    	}
+    	return present;
+    }
+
+	public static void validarPassword(String password) {
+
+		String mayusculaRegex = ".*[A-Z].*";
+        String simboloRegex = ".*[!@#$%^&*()].*";
+        String numeroRegex = ".*\\d.*";
+
+        if (!(password.matches(mayusculaRegex))) {
+			throw new IllegalArgumentException("La contraseña debe contener al menos una mayúscula");
+		} 
+		else if (!(password.matches(simboloRegex))) {
+			throw new IllegalArgumentException("La contraseña debe contener al menos un símbolo especial");
+		}
+		else if (!(password.matches(numeroRegex))) {
+			throw new IllegalArgumentException("La contraseña debe contener al menos un número");		
+		}	
+	}	
+	
+	
 	
 }

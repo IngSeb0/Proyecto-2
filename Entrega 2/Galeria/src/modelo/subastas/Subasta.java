@@ -67,17 +67,23 @@ public class Subasta {
 	 */
 	
 	public void finalizarSubasta() {
-		
+		//TODO
 		for (Pieza p : piezasSubasta) {
-			p.setValorMinimo(0);
-			p.setValorInicial(0);
+//			if (p.getConsignacion() null) {
+//				p.setValorMinimo(0);
+//				p.setValorInicial(0);
+//			}
 		}
+		
+		for (Comprador c : compradoresVerificados) {
+//			c.setSubasta();
+		}
+		
 		this.operador.setSubasta(null);
 	}
 		
-	public void agregarComprador(Subasta subasta, Comprador comprador) {
+	public void verificarComprador(Comprador comprador) {
 		this.compradoresVerificados.add(comprador);
 	}
-
 	
 }
