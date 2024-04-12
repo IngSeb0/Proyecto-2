@@ -1,36 +1,25 @@
 package modelo.ventas;
-
 import modelo.inventario.Pieza;
+import java.util.Date; 
 import modelo.perfiles.Comprador;
 import modelo.perfiles.Administrador;
 
 import modelo.perfiles.Usuario;
+
 public class Venta {
-    
-    /*
-     * Atributos
-     */
     
     private static int contadorVentas = 0;
     private int idVenta;
     private Pieza pieza;
     private Comprador comprador;
-    private String fecha;
+    private Date fecha;
     
-    /*
-     * Constructor
-     */
-    
-    public Venta(Pieza pieza, Comprador comprador, String fecha) {
+    public Venta(Pieza pieza, Comprador comprador, Date fecha) {
         this.idVenta = ++contadorVentas;
         this.pieza = pieza;
         this.comprador = comprador;
         this.fecha = fecha;
     }
-    
-    /*
-     * Getters
-     */
     
     public int getIdVenta() {
         return idVenta;
@@ -44,24 +33,28 @@ public class Venta {
         return comprador;
     }
     
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
     
-    /*
-     * Métodos
-     */
-    
-    // Método para realizar la venta
-    public static void realizarVenta(Administrador administrador, Pieza pieza, Comprador comprador, String fecha) {
-    	String loginComprador = comprador.getUsuario().getLogin();
-    	if (Usuario.validarLogin(loginComprador)) {
-        Venta venta = new Venta(pieza, comprador, fecha);
-        venta.guardarVenta();
-        System.out.println("Venta realizada con éxito. ID de venta: " + venta.getIdVenta());
-    	}
+    public static void realizarVenta(Administrador administrador, Pieza pieza, Comprador comprador, Date fecha, int precio) {
+        if (Comprador.getUsuario);
+    	if (compradorSerio(comprador, precio)) {
+            Venta venta = new Venta(pieza, comprador, fecha);
+            venta.guardarVenta();
+            System.out.println("Venta realizada con éxito. ID de venta: " + venta.getIdVenta());
+        } else {
+            System.out.println("La oferta del comprador no es seria. La venta no se puede realizar.");
+        }
     }
+
+    private static boolean compradorSerio(Comprador comprador, int Costopieza) {
+    	
+            return comprador.getFondosDisponibles() >= Costopieza;
+        }
+        
+
     public void guardarVenta() {
-    	BaseDeDatosVenta.guardarVenta(this);
+        BaseDeDatosVenta.guardarVenta(this);
     }
 }

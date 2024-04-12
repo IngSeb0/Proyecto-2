@@ -14,14 +14,11 @@ public class Usuario {
 	private String login;
 
 	private String password;
-
-	private Perfil perfil;
-
 	/*
 	 * Constructor
 	 */
 
-	public Usuario(Perfil perfil, String login, String password) {
+	public Usuario( String login, String password) {
 
 		if (validarLogin(login)) {
             throw new IllegalArgumentException("El usuario '" + login + "' ya está registrado. Intenta con uno diferente.");
@@ -30,7 +27,7 @@ public class Usuario {
 		 this.login = login;
 		 this.password = password;
 		 logins.add(login);
-		 this.perfil = perfil;
+		 
 	}
 
 	/*
@@ -45,9 +42,6 @@ public class Usuario {
 		return password;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
-	}
 
 	/*
 	 * Métodos
