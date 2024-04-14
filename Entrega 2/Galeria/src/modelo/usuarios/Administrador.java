@@ -19,7 +19,7 @@ public class Administrador extends Empleado {
 	 * Constructor 
 	 */
 
-	public Administrador(String nombre, String apellido, String login, String password, String cedula) {
+	public Administrador(String nombre, String apellido,  String cedula, String login, String password) {
 		super(nombre, apellido, cedula, login, password);
 	}
 

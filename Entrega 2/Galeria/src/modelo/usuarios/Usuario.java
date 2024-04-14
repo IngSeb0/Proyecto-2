@@ -1,7 +1,5 @@
 package modelo.usuarios;
 
-import java.util.ArrayList;
-
 public abstract class Usuario {
 
 	/*
@@ -48,7 +46,7 @@ public abstract class Usuario {
 	}
 	
 	public String getCedula() {
-		return nombre;
+		return cedula;
 	}
 	
 	public String getApellido() {

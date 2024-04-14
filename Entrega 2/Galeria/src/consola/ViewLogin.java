@@ -18,7 +18,6 @@ public class ViewLogin extends View {
 		 System.out.println("\n\n===========================================");
 		 System.out.println("Bienvenido al sistema de la Galería");
 		 System.out.println("===========================================");
-		 System.out.println("\nPara salir ingresa [exit] en cualquier momento");
 		if (galeria != null) {
 			String login = getInput("\nIngresa tu usuario: ");
 			if (galeria.getUsuarios().containsKey(login)) {
@@ -36,7 +35,7 @@ public class ViewLogin extends View {
 	
 	private void validarPassword(String login) {
 		while (true) {
-			String password = getInput("\nIngresa tu constraseña: ");
+			String password = getInput("\nIngresa tu constraseña: ").trim();
 			Usuario usuario = galeria.getUsuarios().get(login);
 			try {
 				if (password.equals(usuario.getPassword())) {

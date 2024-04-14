@@ -86,7 +86,7 @@ private Galeria galeria;
 
 		while (true) {
 			
-			String password = getInput("\nContraseña: \nDebe tener al menos una mayúscula, un número y un símbolo especial [!@#$%^&()*]");
+			String password = getInput("\nContraseña: \nDebe tener al menos una mayúscula, un número y un símbolo especial [!@#$%^&()*]").trim();
 			
 	        try {
 	        	String mayusculaRegex = ".*[A-Z].*";

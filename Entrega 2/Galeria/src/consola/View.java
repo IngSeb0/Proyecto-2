@@ -14,14 +14,16 @@ public abstract class View {
 		
 	}
 	
-    public String getInput(String input) {
-        System.out.println(input);
-        if (input.equalsIgnoreCase("exit")) {
-            System.out.println("Cerrando Aplicación...");
-            System.exit(0);
-        }
-        return scanner.nextLine();
-        
+	public String getInput(String prompt) {
+        System.out.println(prompt);
+        String input = scanner.nextLine();
+//        if (input.equalsIgnoreCase("exit")) {
+//            System.out.println("Cerrando Aplicación...");
+//            System.out.println("Gracias por usar.");
+//            close();
+//            System.exit(0);
+//        }
+        return input;
     }
     
     public String capitalize(String input) {
