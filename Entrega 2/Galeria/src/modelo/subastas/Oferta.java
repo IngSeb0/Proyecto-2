@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import modelo.inventario.Pieza;
-import modelo.perfiles.Comprador;
+import modelo.usuarios.Comprador;
 
 public class Oferta {
 
@@ -16,15 +16,17 @@ public class Oferta {
 	
 	private Pieza pieza;
 
-	private int bid;
+	private int valorOferta;
 	
-	private Comprador bidder;
+	private Comprador comprador;
+	
+	private boolean aceptada;
 	
 	/*
 	 * Constructor
 	 */
 	
-	public Oferta(Subasta subasta, Pieza pieza, Comprador comprador, int bid) {
+	public Oferta(Subasta subasta, Pieza pieza, Comprador comprador, int valorOferta) {
 		
 		LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -32,8 +34,8 @@ public class Oferta {
         
         this.fecha = fecha;
         this.pieza = pieza;
-        this.bid = bid;
-        this.bidder = comprador;
+        this.valorOferta = valorOferta;
+        this.comprador = comprador;
         subasta.getOfertas().add(this);
 	}
 
@@ -49,12 +51,19 @@ public class Oferta {
 		return pieza;
 	}
 
-	public int getBid() {
-		return bid;
+	public int getValorOferta() {
+		return valorOferta;
 	}
 
-	public Comprador getBidder() {
-		return bidder;
+	public Comprador getComprador() {
+		return comprador;
 	}
 
+	public boolean esAceptada() {
+		return aceptada;
+	}
+	
+	public void aceptarOferta(boolean aceptada) {
+		this.aceptada = aceptada;
+	}
 }

@@ -1,8 +1,8 @@
 package modelo.ventas;
 
 import modelo.inventario.Pieza;
-import modelo.perfiles.Administrador;
-import modelo.perfiles.Comprador;
+import modelo.usuarios.Administrador;
+import modelo.usuarios.Comprador;
 
 public class Venta implements Factura {
 	

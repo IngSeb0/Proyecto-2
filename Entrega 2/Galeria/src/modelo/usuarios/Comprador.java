@@ -1,4 +1,4 @@
-package modelo.perfiles;
+package modelo.usuarios;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +20,15 @@ public class Comprador extends Usuario {
 	
 	private HashMap<String, String> facturas = new HashMap<String, String>();
 	
-	private MetodoPago metodoPagoActual;
-	
 	private ArrayList<MetodoPago> metodosPago;
 	
 	private int valorMaximoCompras;
 	
 	private int valorTotalCompras;
+	
+	private int saldoDisponible;
+	
+	private Pieza piezaSubasta;
 	
 	private Subasta subasta;
 	
@@ -34,9 +36,8 @@ public class Comprador extends Usuario {
 	 * Constructor
 	 */
 	
-	public Comprador(String nombre, String apellido, String login, String password) {
-		super(nombre, apellido, login, password);
-		
+	public Comprador(String nombre, String apellido, String login, String password, String cedula) {
+		super(nombre, apellido, cedula, login, password);
 	}
 
 	/*
@@ -53,14 +54,6 @@ public class Comprador extends Usuario {
 	
 	public HashMap<String, String> getFacturas() {
 		return facturas;
-	}
-
-	public MetodoPago getMetodoPagoActual() {
-		return metodoPagoActual;
-	}
-
-	public void setMetodoPagoActual(MetodoPago metodoPago) {
-		this.metodoPagoActual = metodoPago;
 	}
 	
 	public ArrayList<MetodoPago> getMetodosPago() {
@@ -83,20 +76,33 @@ public class Comprador extends Usuario {
 		this.valorTotalCompras += valorCompra;
 	}
 	
+	public void verPieza(Pieza pieza) {
+		this.piezaSubasta = pieza;
+	}
+	
+	public int getSaldoDisponible() {
+		return saldoDisponible;
+	}
+	
+	public void setSaldoDisponible() {
+		int valorMaximoCompras = getValorMaximoCompras();
+		int valorTotalCompras = getValorTotalCompras();
+		this.saldoDisponible = valorMaximoCompras - valorTotalCompras;
+	}
 	/*
 	 * Métodos
 	 */
 	
-	public void hacerOfectar(Pieza pieza, int bid) {
+	public void hacerOfectar(int valorOferta) {
 		
-		if (this.subasta != null) {
-			new Oferta(subasta, pieza, this, bid);
+			new Oferta(subasta, piezaSubasta, this, valorOferta);
 		}
-	}
 	
 	public void comprarPieza(Pieza pieza) {
 		//TODO
 	}
+	
+	
 	
 }
 

@@ -1,5 +1,6 @@
 package modelo.ventas;
 
-public class MetodoPago {
+public interface MetodoPago {
 
+	
 }

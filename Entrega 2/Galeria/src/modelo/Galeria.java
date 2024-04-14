@@ -5,23 +5,34 @@ import java.util.HashMap;
 
 import modelo.inventario.Artista;
 import modelo.inventario.Pieza;
-import modelo.perfiles.Perfil;
+import modelo.subastas.Subasta;
+import modelo.usuarios.Administrador;
+import modelo.usuarios.Empleado;
+import modelo.usuarios.Usuario;
 
 public class Galeria {
 
 	/*
-	 * Atirubutos 
+	 * Atributos 
 	 */
+	
+	private HashMap<String, Usuario> usuarios = new HashMap<String, Usuario>();
 	
 	private ArrayList<Artista> artistas = new ArrayList<Artista>();
 
-	private ArrayList<Pieza> piezas = new ArrayList<Pieza>();
+	private ArrayList<Pieza> piezasInventario = new ArrayList<Pieza>();
+	
+	private ArrayList<Pieza> piezasPasadas = new ArrayList<Pieza>();
 	
 	private ArrayList<Pieza> piezasBodega = new ArrayList<Pieza>();
 	
 	private ArrayList<Pieza> piezasExhibidas = new ArrayList<Pieza>();
 
-	private HashMap<String, Perfil> perfiles = new HashMap<String, Perfil>();
+	private HashMap<String, Subasta> subastas = new HashMap<String, Subasta>();
+	
+	private ArrayList<Empleado> empleados = new ArrayList<Empleado>();
+	
+	private Administrador administrador;
 	
 	
 	
@@ -29,34 +40,94 @@ public class Galeria {
 	 * Constructor
 	 */
 	
+	public Galeria() {
+		//TODO Constructor de la galeria
+	}
 	
 	/*
 	 * Getters
 	 */
 	
-	public Galeria() {
-		//TODO Constructor de la galeria
-	}
-	
 	public ArrayList<Artista> getArtistas() {
 		return artistas;
 	}
 	
+	
 	public ArrayList<Pieza> getPiezas() {
-		return piezas;
+		return piezasInventario;
 	}
+	
+	
+	public ArrayList<Pieza> getPiezasPasadas() {
+		return piezasPasadas;
+	}
+	
 	
 	public ArrayList<Pieza> getPiezasBodega() {
 		return piezasBodega;
 	}
 	
+	
 	public ArrayList<Pieza> getPiezasExhibidas() {
 		return piezasExhibidas;
 	}
 	
-	public HashMap<String, Perfil> getPerfiles() {
-		return perfiles;
+	
+	public HashMap<String, Usuario> getUsuarios() {
+		return usuarios;
 	}
 	
 	
+	public Usuario getAdministrador() {
+		return administrador;
+	}
+	
+	
+	public void setAdminisrtrador(Administrador administrador) {
+		this.administrador = administrador;
+	}
+	
+	
+	
+	public ArrayList<Empleado> getEmpleados() {
+		return empleados;
+	}
+	
+	
+	public Empleado getEmpleado(String numeroCedula) {
+		Empleado empleado = null;
+		for (Empleado e : empleados) 
+		{
+        	if(numeroCedula.equals(e.getCedula()));
+        	empleado = e;
+		}
+		return empleado;
+	}
+	
+
+	/*
+	 * Métodos
+	 */
+	
+	public Subasta crearSubasta(String fecha, Empleado operador) {
+		Subasta subasta = new Subasta(fecha, operador);
+		subastas.put(fecha, subasta);
+		return subasta;
+	}
+	
+	public Subasta iniciarSubasta(String fecha) {
+		return subastas.get(fecha);
+	}
+
+	public void agregarUsuario(String login, Usuario usuario) {
+		usuarios.put(login, usuario);
+		
+	}
+	
+	public void agregarEmpleados(Empleado empleado) {
+		this.empleados.add(empleado);
+	}
 }
+	
+	
+	

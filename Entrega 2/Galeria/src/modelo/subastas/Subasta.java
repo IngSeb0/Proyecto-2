@@ -3,9 +3,9 @@ package modelo.subastas;
 import java.util.ArrayList;
 
 import modelo.inventario.Pieza;
-import modelo.perfiles.Administrador;
-import modelo.perfiles.Comprador;
-import modelo.perfiles.Empleado;
+import modelo.usuarios.Administrador;
+import modelo.usuarios.Comprador;
+import modelo.usuarios.Empleado;
 
 public class Subasta {
 
@@ -21,7 +21,7 @@ public class Subasta {
 	
 	private Empleado operador;
 	
-	private Administrador Administrador;
+	private Administrador administrador;
 	
 	private ArrayList<Pieza> piezasSubasta;
 	
@@ -67,23 +67,17 @@ public class Subasta {
 	 */
 	
 	public void finalizarSubasta() {
-		//TODO
-		for (Pieza p : piezasSubasta) {
-//			if (p.getConsignacion() null) {
-//				p.setValorMinimo(0);
-//				p.setValorInicial(0);
-//			}
-		}
-		
-		for (Comprador c : compradoresVerificados) {
-//			c.setSubasta();
-		}
-		
-		this.operador.setSubasta(null);
+
 	}
 		
-	public void verificarComprador(Comprador comprador) {
+	public void agregarComprador(Comprador comprador) {
 		this.compradoresVerificados.add(comprador);
 	}
 	
+	public void mostrarPieza(Pieza pieza) {
+		for (Comprador c : compradoresVerificados) {
+			c.verPieza(pieza);
+		}
+	
+	}
 }

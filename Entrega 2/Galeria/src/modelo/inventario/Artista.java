@@ -4,34 +4,26 @@ import java.util.ArrayList;
 
 public class Artista {
 
-	/* Atributos
-	 * 
+	/* 
+	 * Atributos
 	 */
 
-	private String nombre;
+	protected String nombre;
 
-	private ArrayList<Pieza> piezas = new ArrayList<Pieza>(); 
+	protected ArrayList<Pieza> piezas = new ArrayList<Pieza>(); 
 
 	private ColectivoArtistas colectivo;
 
-	/* Constructor
-	 * 
+	/* 
+	 * Constructor
 	 */
 
 	public Artista(String nombre) {
-
-		if (nombre != null) {
-			this.nombre = nombre;
-		} else {
-			nombre = "Anónimo";
-			//TODO	
-			//Diferencia un anónimo de otro	
-		}
-
+		this.nombre = nombre;
 	}
 
-	/* Getters
-	 * 
+	/* 
+	 * Getters
 	 */
 
 	public String getNombre() {

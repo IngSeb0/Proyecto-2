@@ -2,8 +2,8 @@ package modelo.inventario;
 
 import java.util.ArrayList;
 
-import modelo.perfiles.Comprador;
 import modelo.subastas.Subasta;
+import modelo.usuarios.Comprador;
 
 public abstract class Pieza {
 	

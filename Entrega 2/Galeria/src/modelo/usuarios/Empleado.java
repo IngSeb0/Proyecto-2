@@ -1,4 +1,4 @@
-package modelo.perfiles;
+package modelo.usuarios;
 
 import modelo.inventario.Pieza;
 import modelo.subastas.Oferta;
@@ -13,14 +13,15 @@ public class Empleado extends Usuario {
 	
 	protected Subasta subasta;
 	
-	
+	protected String cedula;
 
 	/*
 	 * Constructor
 	 */
 	
-	public Empleado(String nombre, String apellido, String login, String password) {
-		super(nombre, apellido, login, password);
+	public Empleado(String nombre, String apellido, String login, String password, String cedula) {
+		super(nombre, apellido, cedula, login, password);
+		this.cedula = cedula;
 	}
 	
 	/*
@@ -43,13 +44,8 @@ public class Empleado extends Usuario {
 		subasta.getPiezasSubasta().add(pieza);
 	}
 
-	public void aceptarOfertaSubasta(Subasta subasta, Oferta oferta, boolean vendida) {
-		if (vendida) {
+	public void registrarOfertaSubasta(Subasta subasta, Oferta oferta) {
 		subasta.getOfertas().add(oferta);
-		oferta.getPieza().venderPieza();
-		} else {
-			subasta.getOfertas().add(oferta);
-		}
 	}
 
 }
