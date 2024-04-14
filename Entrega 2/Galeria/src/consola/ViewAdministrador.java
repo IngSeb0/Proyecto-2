@@ -1,0 +1,82 @@
+package consola;
+
+import java.util.ArrayList;
+
+import modelo.Galeria;
+import modelo.subastas.Subasta;
+import modelo.usuarios.Administrador;
+import modelo.usuarios.Cajero;
+import modelo.usuarios.Empleado;
+
+public class ViewAdministrador extends View {
+
+	private Administrador administrador;
+	
+	private Galeria galeria;
+	
+	public ViewAdministrador(Galeria galeria, Administrador administrador) {
+		this.administrador = administrador;
+		this.galeria = galeria;
+	}
+	
+	@Override
+	public void mostrarMenu() {
+		System.out.println("\n\n===========================================");
+		System.out.println("Administrador");
+        System.out.println("===========================================\n");
+        
+        //TODO organizar menú
+        System.out.println("3. Configurar subasta");
+      
+        String opcion = getInput("\nSelecciona una opción: ");
+        seleccionarOpcion(opcion);
+	}
+	
+	public void seleccionarOpcion(String opcion) {
+		
+		switch(opcion) {
+		case "3":
+			// Crear una subasta
+		}
+		
+		
+	}
+	
+	public void crearSubasta() {
+		
+		System.out.println("\n--> Seleccionar fecha");
+		String fecha = getInput("\nIngresa la fecha en la que se realizará la subasta: ");
+		System.out.println("(dd-MM-YYYY)");
+		
+		System.out.println("\n--> Seleccionar operador");
+		System.out.println("Empleados disponibles: \n");
+		ArrayList<Empleado> empleados = galeria.getEmpleados();
+		for (Empleado e : empleados) {
+			if (!(e instanceof Cajero))
+			System.out.println(e.getNombre() + " " + e.getApellido() + ", " + e.getCedula());
+		}
+		System.out.println("\nPara asignar el operador de la subasta, ingresa el número de cédula del empleado.");
+		Empleado operador = null;
+		// Buscar empleado
+		while (true) {
+			String numeroCedula = getInput("\nNúmero de cédula: ");
+	        try { 
+	        	operador = galeria.getEmpleado(numeroCedula);
+	        	if (operador != null) {
+	        		break;
+	        	} else {
+	        		throw new IllegalArgumentException("No se encontró el empleado.");
+	        	}
+	        	
+	        } catch (IllegalArgumentException e) {
+	        	System.out.println(e.getMessage());	
+	        }	
+		}
+		if (operador != null) {
+		    Subasta subasta = galeria.crearSubasta(fecha, operador);
+		    System.out.println("Se créo una subasta para " + subasta.getFecha() + ". Operador:" + subasta.getOperador().getNombre());
+		} else {
+		    System.out.println("Error: No se pudo asignar un operador para la subasta.");
+		}
+	}
+}

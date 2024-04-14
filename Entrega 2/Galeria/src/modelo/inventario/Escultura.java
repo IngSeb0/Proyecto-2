@@ -2,7 +2,7 @@ package modelo.inventario;
 
 import java.util.ArrayList;
 
-import modelo.perfiles.Propietario;
+import modelo.usuarios.Propietario;
 
 public class Escultura extends Pieza {
 

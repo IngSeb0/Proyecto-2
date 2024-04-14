@@ -4,18 +4,14 @@ import java.util.ArrayList;
 
 public class ColectivoArtistas extends Artista {
 
-	/* Atributos
-	 * 
+	/* 
+	 * Atributos
 	 */
-
-	private String nombre;
 
 	private ArrayList<Artista> artistas;
 
-	private ArrayList<Pieza> piezas = new ArrayList<Pieza>();
-
-	/* Constructor
-	 * 
+	/* 
+	 * Constructor
 	 */
 
 	public ColectivoArtistas(String nombre, Artista artista) {
@@ -24,8 +20,8 @@ public class ColectivoArtistas extends Artista {
 		artista.agregarColectivo(this);
 	}
 
-	/* Getters
-	 * 
+	/* 
+	 * Getters + Setters
 	 */
 
 	public String getNombre() {
@@ -40,16 +36,6 @@ public class ColectivoArtistas extends Artista {
 		return piezas;
 	}
 
-	/* Métodos
-	 * 
-	 */
-
-	public void agregarArtista(Artista artista) {
-		this.artistas.add(artista);
-		setPiezas();
-
-	}
-
 	public void setPiezas() {
 		for (Artista a : this.artistas) {
 			ArrayList<Pieza> piezasArtista = a.getPiezas();
@@ -57,6 +43,16 @@ public class ColectivoArtistas extends Artista {
 				this.piezas.add(p);
 			}
 		}
+
+	}
+	
+	/* 
+	 * Métodos
+	 */
+
+	public void agregarArtista(Artista artista) {
+		this.artistas.add(artista);
+		setPiezas();
 
 	}
 
