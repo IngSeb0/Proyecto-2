@@ -37,7 +37,7 @@ public class Consignacion{
 		return administrador;
 	}
 
-/*
+
 	public boolean verificarVencimiento(String fechaActual) {
 		boolean resultado;
 		String [] fechaA=fechaActual.split("/");
@@ -63,7 +63,7 @@ public class Consignacion{
 		    resultado=false;
 		}
 		return resultado;
-	}*/
+	}
 
 	public void finalizarConsignacion(Pieza pieza, Administrador administrador) {
 		//El admin elimina la pieza de la galeria administrador.devolucionPieza(Pieza pieza)
