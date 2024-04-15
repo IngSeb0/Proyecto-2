@@ -16,8 +16,8 @@ public class Comprador extends Usuario {
     private int fondosDisponibles;
 
     // Constructor
-    public Comprador(String nombre, String apellido, String login, String password) {
-        super(nombre, apellido, login, password);
+    public Comprador( String login, String password) {
+        super(login, password);
         this.piezasActuales = new ArrayList<>();
         this.piezasPasadas = new ArrayList<>();
         this.facturas = new HashMap<>();

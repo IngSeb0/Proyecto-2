@@ -1,6 +1,6 @@
 package modelo.usuarios;
 
-public abstract class Usuario {
+public class Usuario {
 
 	/*
 	 * Atributos

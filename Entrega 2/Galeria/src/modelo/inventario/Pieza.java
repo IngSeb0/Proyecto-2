@@ -1,7 +1,7 @@
 package modelo.inventario;
 import java.util.ArrayList;
 import java.util.Date;
-import modelo.perfiles.Propietario;
+
 import modelo.perfiles.Comprador;
 import modelo.perfiles.Administrador;
 import modelo.ventas.Venta;
