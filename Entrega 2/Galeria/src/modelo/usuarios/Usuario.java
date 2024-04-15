@@ -16,17 +16,20 @@ public abstract class Usuario {
 
 	protected String password;
 
+	protected String tipoUsuario;
+
 	/*
 	 * Constructor
 	 */
 
-	public Usuario(String nombre, String apellido, String cedula, String login, String password) {
+	public Usuario(String nombre, String apellido, String cedula, String login, String password, String tipoUsuario) {
 		
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.cedula = cedula;
 		this.login = login;
 		this.password = password;
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	/*
@@ -51,5 +54,9 @@ public abstract class Usuario {
 	
 	public String getApellido() {
 		return apellido;
+	}
+	
+	public String getTipoUsuario() {
+		return tipoUsuario;
 	}
 }

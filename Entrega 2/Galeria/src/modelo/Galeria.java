@@ -98,8 +98,9 @@ public class Galeria {
 		Empleado empleado = null;
 		for (Empleado e : empleados) 
 		{
-        	if(numeroCedula.equals(e.getCedula()));
+        	if(numeroCedula.equals(e.getCedula())) {;
         	empleado = e;
+        	}
 		}
 		return empleado;
 	}
@@ -124,7 +125,7 @@ public class Galeria {
 		
 	}
 	
-	public void agregarEmpleados(Empleado empleado) {
+	public void agregarEmpleado(Empleado empleado) {
 		this.empleados.add(empleado);
 	}
 }

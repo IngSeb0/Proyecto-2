@@ -36,8 +36,8 @@ public class Comprador extends Usuario {
 	 * Constructor
 	 */
 	
-	public Comprador(String nombre, String apellido, String login, String password, String cedula) {
-		super(nombre, apellido, cedula, login, password);
+	public Comprador(String nombre, String apellido, String login, String password, String cedula, String tipoUsuario) {
+		super(nombre, apellido, cedula, login, password, tipoUsuario);
 	}
 
 	/*

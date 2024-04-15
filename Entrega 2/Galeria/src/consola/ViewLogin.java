@@ -1,6 +1,7 @@
 package consola;
 
 import modelo.Galeria;
+import modelo.usuarios.Administrador;
 import modelo.usuarios.Usuario;
 
 public class ViewLogin extends View {
@@ -66,10 +67,12 @@ public class ViewLogin extends View {
 	}
 		
 	public void iniciarSesion(Usuario usuario) {
-		String tipoUsuario=usuario.getClass().getName();
+		String tipoUsuario = usuario.getTipoUsuario();
 		switch(tipoUsuario) {
 		case "Administrador":
-			//viewAdministrador
+			Administrador administrador = (Administrador) usuario;
+			ViewAdministrador viewAdmin = new ViewAdministrador(galeria, administrador);
+			viewAdmin.mostrarMenu();
 			break;
 		case "Empleado":
 			//viewEmpleado

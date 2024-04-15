@@ -17,8 +17,8 @@ public class Empleado extends Usuario {
 	 * Constructor
 	 */
 	
-	public Empleado(String nombre, String apellido,  String cedula, String login, String password) {
-		super(nombre, apellido, cedula, login, password);
+	public Empleado(String nombre, String apellido,  String cedula, String login, String password, String tipoUsuario) {
+		super(nombre, apellido, cedula, login, password, tipoUsuario);
 	}
 	
 	/*

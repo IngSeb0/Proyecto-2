@@ -2,6 +2,7 @@ package consola;
 
 import modelo.Galeria;
 import modelo.usuarios.Administrador;
+import modelo.usuarios.Empleado;
 
 public class ViewRegistro extends View {
 	
@@ -44,14 +45,17 @@ private Galeria galeria;
 		switch(tipoUsuario) {
 		
 		case "Administrador":
-			Administrador administrador = new Administrador(nombre, apellido, cedula, login, password);
+			Administrador administrador = new Administrador(nombre, apellido, cedula, login, password, tipoUsuario);
 			galeria.agregarUsuario(login, administrador);
 			administrador.setGaleria(galeria);
 			System.out.println("\nUsuario creado con éxito");
 			break;
 			
 		case "Empleado":
-			//viewEmpleado
+			Empleado empleado = new Empleado(nombre, apellido, cedula, login, password, tipoUsuario);
+			galeria.agregarUsuario(login, empleado);
+			galeria.agregarEmpleado(empleado);
+			System.out.println("\nUsuario creado con éxito.");
 			break;
 		case "Cajero":
 			break;

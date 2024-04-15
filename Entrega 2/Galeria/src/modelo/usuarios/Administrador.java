@@ -19,8 +19,8 @@ public class Administrador extends Empleado {
 	 * Constructor 
 	 */
 
-	public Administrador(String nombre, String apellido,  String cedula, String login, String password) {
-		super(nombre, apellido, cedula, login, password);
+	public Administrador(String nombre, String apellido,  String cedula, String login, String password, String tipoUsuario) {
+		super(nombre, apellido, cedula, login, password, tipoUsuario);
 	}
 
 
@@ -42,10 +42,8 @@ public class Administrador extends Empleado {
 	}
 	
 	public void VerificarComprador(Subasta subasta, Comprador comprador, int valorMaximoCompras) {
-		
 		comprador.setValorMaximoCompras(valorMaximoCompras);
 		subasta.agregarComprador(comprador);
-		
 	}
 	
 	public void verificarOfertasSubasta(Subasta subasta, Oferta oferta) {

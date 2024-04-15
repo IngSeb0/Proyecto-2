@@ -27,6 +27,8 @@ public class ViewAdministrador extends View {
         
         //TODO organizar menú
         System.out.println("3. Configurar subasta");
+        System.out.println("4. Registrar empleado");
+        System.out.println("5. Registrar cajero");
       
         String opcion = getInput("\nSelecciona una opción: ");
         seleccionarOpcion(opcion);
@@ -36,24 +38,39 @@ public class ViewAdministrador extends View {
 		
 		switch(opcion) {
 		case "3":
-			// Crear una subasta
+			crearSubasta();
+			break;
+		
+		case "4":
+			registrarEmpleado();
+		break;
 		}
-		
-		
+		mostrarMenu();
 	}
 	
+	private void registrarEmpleado() {
+		ViewRegistro viewRegistro = new ViewRegistro(galeria);
+		System.out.println("\n===========================================");
+		System.out.println("Registrar empleado");
+		System.out.println("===========================================");
+		viewRegistro.registrarNuevoUsuario("Empleado");
+	}
+
 	public void crearSubasta() {
-		
 		System.out.println("\n--> Seleccionar fecha");
-		String fecha = getInput("\nIngresa la fecha en la que se realizará la subasta: ");
-		System.out.println("(dd-MM-YYYY)");
+		String fecha = getInputFecha("Ingresa la fecha en la que se realizará la subasta (DD-MM-YYYY): ");
 		
 		System.out.println("\n--> Seleccionar operador");
-		System.out.println("Empleados disponibles: \n");
 		ArrayList<Empleado> empleados = galeria.getEmpleados();
-		for (Empleado e : empleados) {
-			if (!(e instanceof Cajero))
-			System.out.println(e.getNombre() + " " + e.getApellido() + ", " + e.getCedula());
+		if (empleados.isEmpty()) {
+			System.out.println("No hay ningún empleado registrado. Primero, registra un empleado.\n");
+			mostrarMenu();
+		} else {
+			System.out.println("Empleados disponibles: \n");
+			for (Empleado e : empleados) {
+				if (!(e instanceof Cajero)) {
+					System.out.println(e.getNombre() + " " + e.getApellido() + ", " + e.getCedula());
+				}
 		}
 		System.out.println("\nPara asignar el operador de la subasta, ingresa el número de cédula del empleado.");
 		Empleado operador = null;
@@ -78,5 +95,10 @@ public class ViewAdministrador extends View {
 		} else {
 		    System.out.println("Error: No se pudo asignar un operador para la subasta.");
 		}
+		}
 	}
+
+
+
+
 }

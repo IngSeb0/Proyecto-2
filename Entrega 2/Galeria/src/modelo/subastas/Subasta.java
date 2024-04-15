@@ -30,7 +30,6 @@ public class Subasta {
 	 */
 	
 	public Subasta(String fecha, Empleado operador) {
-		
 		this.fecha = fecha;
 		this.operador = operador;
 		operador.setSubasta(this);
