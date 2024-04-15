@@ -35,9 +35,8 @@ public class Empleado extends Usuario {
 	 */
 	
 	public void agregarPiezaASubasta(Subasta subasta, Pieza pieza, int valorInicial, int valorMinimo) {
-		
-		pieza.setValorInicial(valorInicial);
-		pieza.setValorMinimo(valorMinimo);
+//		pieza.setValorInicial(valorInicial);
+//		pieza.setValorMinimo(valorMinimo);
 		subasta.getPiezasSubasta().add(pieza);
 	}
 

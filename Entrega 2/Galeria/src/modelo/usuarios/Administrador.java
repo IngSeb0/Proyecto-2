@@ -51,11 +51,11 @@ public class Administrador extends Empleado {
 		for (Oferta o : ofertasSubasta) {
 			Pieza piezaOferta = o.getPieza();
 			Comprador compradorOferta = o.getComprador();
-			if(o.getValorOferta() >= piezaOferta.getValorMinimo() && o.getValorOferta() <= compradorOferta.getSaldoDisponible()) {
+			//if(o.getValorOferta() >= piezaOferta.getValorMinimo() && o.getValorOferta() <= compradorOferta.getSaldoDisponible()) {
 				o.aceptarOferta(true);
-			}
 		}
 	}
+}
 	
 
 	
@@ -64,4 +64,4 @@ public class Administrador extends Empleado {
 	
 	
 	
-}
+
