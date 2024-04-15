@@ -1,36 +1,60 @@
 package modelo.ventas;
-
 import modelo.inventario.Pieza;
-import modelo.usuarios.Administrador;
-import modelo.usuarios.Comprador;
+import java.util.Date; 
+import modelo.perfiles.Comprador;
+import modelo.perfiles.Administrador;
 
-public class Venta implements Factura {
-	
-	/*
-	 * Atributos
-	 */
-	
-	private int idFactura;
+import modelo.perfiles.Usuario;
 
-	private Pieza pieza;
-	
-	private Comprador comprador;
-	
-	private String fecha;
-	
-	/*
-	 * Constructor
-	 */
-	
-	public Venta(Pieza pieza, Comprador comprador, String fecha) {
-		
-		this.pieza = pieza;
-		this.comprador = comprador;
-		this.fecha = fecha;
-	}
-	
-	
-	
-	
+public class Venta {
+    
+    private static int contadorVentas = 0;
+    private int idVenta;
+    private Pieza pieza;
+    private Comprador comprador;
+    private Date fecha;
+    
+    public Venta(Pieza pieza, Comprador comprador, Date fecha) {
+        this.idVenta = ++contadorVentas;
+        this.pieza = pieza;
+        this.comprador = comprador;
+        this.fecha = fecha;
+    }
+    
+    public int getIdVenta() {
+        return idVenta;
+    }
+    
+    public Pieza getPieza() {
+        return pieza;
+    }
+    
+    public Comprador getComprador() {
+        return comprador;
+    }
+    
+    public Date getFecha() {
+        return fecha;
+    }
+    
+    public static void realizarVenta(Administrador administrador, Pieza pieza, Comprador comprador, Date fecha, int precio) {
+        if (Comprador.getUsuario);
+    	if (compradorSerio(comprador, precio)) {
+            Venta venta = new Venta(pieza, comprador, fecha);
+            venta.guardarVenta();
+            System.out.println("Venta realizada con éxito. ID de venta: " + venta.getIdVenta());
+        } else {
+            System.out.println("La oferta del comprador no es seria. La venta no se puede realizar.");
+        }
+    }
 
+    private static boolean compradorSerio(Comprador comprador, int Costopieza) {
+    	
+            return comprador.getFondosDisponibles() >= Costopieza;
+        }
+        
+
+    public void guardarVenta() {
+        BaseDeDatosVenta.guardarVenta(this);
+    }
 }
