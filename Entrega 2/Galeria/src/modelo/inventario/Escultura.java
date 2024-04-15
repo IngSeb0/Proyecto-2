@@ -25,10 +25,10 @@ public class Escultura extends Pieza {
 	/* Constructor
 	 * 
 	 */
-
-	public Escultura(String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Propietario propietario, int alto,
-			int ancho, int profundidad, int peso, ArrayList<String > materialesConstruccion, boolean electricidad) {
-		super(titulo, fechaCreacion, lugarCreacion, artista, propietario);
+	public Escultura(String titulo, String anioCreacion, String lugarCreacion, Artista artista, Propietario propietario,
+			Consignacion consignacion, int alto, int ancho, int profundidad, int peso,
+			ArrayList<String> materialesConstruccion, boolean electricidad) {
+		super(titulo, anioCreacion, lugarCreacion, artista, propietario, consignacion);
 		this.alto = alto;
 		this.ancho = ancho;
 		this.profundidad = profundidad;
@@ -36,6 +36,7 @@ public class Escultura extends Pieza {
 		this.materialesConstruccion = materialesConstruccion;
 		this.electricidad = electricidad;
 	}
+
 
 	/* Getters
 	 * 

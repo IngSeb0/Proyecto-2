@@ -1,11 +1,15 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import modelo.inventario.Artista;
 import modelo.inventario.Pieza;
 import modelo.perfiles.Perfil;
+import modelo.perfiles.Usuario;
 
 public class Galeria {
 
@@ -13,15 +17,14 @@ public class Galeria {
 	 * Atirubutos 
 	 */
 	
-	private ArrayList<Artista> artistas = new ArrayList<Artista>();
+	Map<String, Usuario> Usuarios;
 
-	private ArrayList<Pieza> piezas = new ArrayList<Pieza>();
+	private List<Pieza> piezas;
 	
-	private ArrayList<Pieza> piezasBodega = new ArrayList<Pieza>();
+	private List<Pieza> piezasBodega;
 	
-	private ArrayList<Pieza> piezasExhibidas = new ArrayList<Pieza>();
+	private List<Pieza> piezasExhibidas;
 
-	private HashMap<String, Perfil> perfiles = new HashMap<String, Perfil>();
 	
 	/*
 	 * Constructor
@@ -33,28 +36,27 @@ public class Galeria {
 	 */
 	
 	public Galeria() {
-		//TODO Constructor de la galeria
+		Usuarios = new HashMap<String,Usuario>();
+		piezas = new ArrayList<Pieza>();
+		piezasBodega = new ArrayList<Pieza>();
+		piezasExhibidas = new ArrayList<Pieza>();
 	}
 	
-	public ArrayList<Artista> getArtistas() {
-		return artistas;
+	public Collection<Usuario> getUsuarios() {
+		return Usuarios.values();
 	}
 	
-	public ArrayList<Pieza> getPiezas() {
+	public Collection<Pieza> getPiezas() {
 		return piezas;
 	}
 	
-	public ArrayList<Pieza> getPiezasBodega() {
+	public Collection<Pieza> getPiezasBodega() {
 		return piezasBodega;
 	}
 	
-	public ArrayList<Pieza> getPiezasExhibidas() {
+	public Collection<Pieza> getPiezasExhibidas() {
 		return piezasExhibidas;
 	}
-	
-	public HashMap<String, Perfil> getPerfiles() {
-		return perfiles;
-	}
-	
+
 	
 }

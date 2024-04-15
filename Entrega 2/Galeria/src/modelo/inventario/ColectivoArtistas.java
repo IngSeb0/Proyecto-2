@@ -8,7 +8,7 @@ public class ColectivoArtistas extends Artista {
 	 * 
 	 */
 
-	private String nombre;
+	private String nombreColectivo;
 
 	private ArrayList<Artista> artistas;
 
@@ -17,28 +17,22 @@ public class ColectivoArtistas extends Artista {
 	/* Constructor
 	 * 
 	 */
-
-	public ColectivoArtistas(String nombre, Artista artista) {
+	
+	public ColectivoArtistas(String nombre, String nombreColectivo, ArrayList<Artista> artistas) {
 		super(nombre);
-		this.agregarArtista(artista);
-		artista.agregarColectivo(this);
+		this.nombreColectivo = nombreColectivo;
+		this.artistas = artistas;
 	}
+
 
 	/* Getters
 	 * 
 	 */
 
-	public String getNombre() {
-		return nombre;
-	}
-
 	public ArrayList<Artista> getArtistas() {
 		return artistas;
 	}
 
-	public ArrayList<Pieza> getPiezas() {
-		return piezas;
-	}
 
 	/* Métodos
 	 * 
@@ -46,11 +40,10 @@ public class ColectivoArtistas extends Artista {
 
 	public void agregarArtista(Artista artista) {
 		this.artistas.add(artista);
-		setPiezas();
 
 	}
 
-	public void setPiezas() {
+	/*public void setPiezas() {
 		for (Artista a : this.artistas) {
 			ArrayList<Pieza> piezasArtista = a.getPiezas();
 			for (Pieza p : piezasArtista) {
@@ -59,5 +52,5 @@ public class ColectivoArtistas extends Artista {
 		}
 
 	}
-
+*/
 }

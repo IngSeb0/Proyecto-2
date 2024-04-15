@@ -8,9 +8,9 @@ public class Artista {
 	 * 
 	 */
 
-	private String nombre;
+	protected String nombre;
 
-	private ArrayList<Pieza> piezas = new ArrayList<Pieza>(); 
+	protected ArrayList<Pieza> piezas = new ArrayList<Pieza>(); 
 
 	private ColectivoArtistas colectivo;
 
@@ -38,9 +38,6 @@ public class Artista {
 		return nombre;
 	}
 
-	public ArrayList<Pieza> getPiezas() {
-		return piezas;
-	}
 
 	public ColectivoArtistas getColectivo() {
 		return colectivo;
@@ -50,11 +47,4 @@ public class Artista {
 	 * 
 	 */
 
-	public void agregarColectivo(ColectivoArtistas colectivo) {
-		this.colectivo = colectivo;
-	}
-
-	public void agregarPieza(Pieza pieza) {
-		this.piezas.add(pieza);
-	}
 }
