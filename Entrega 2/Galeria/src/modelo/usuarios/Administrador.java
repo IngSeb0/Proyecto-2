@@ -1,66 +1,65 @@
 package modelo.usuarios;
-
-import java.util.ArrayList;
-
+import consola.ViewRegistro;
 import modelo.Galeria;
-import modelo.inventario.Pieza;
+import java.util.ArrayList;
+import java.util.HashMap;
 import modelo.subastas.Oferta;
-import modelo.subastas.Subasta;
+import modelo.ventas.Consignación;
 
-public class Administrador extends Empleado {
+public class Administrador extends Usuario {
+    private Galeria galeria;
+    private ViewRegistro viewRegistro;
+    private HashMap<String, Oferta> ofertasPendientes;
+    private ArrayList<Consignación> consignacionesPendientes;
 
-	/*
-	 * Atributos
-	 */
-	
-	private Galeria galeria;
-	
-	/*
-	 * Constructor 
-	 */
+   
 
-	public Administrador(String nombre, String apellido,  String cedula, String login, String password, String tipoUsuario) {
+    public Administrador(String nombre, String apellido, String cedula, String login, String password,
+			String tipoUsuario, Galeria galeria, ViewRegistro viewRegistro, HashMap<String, Oferta> ofertasPendientes,
+			ArrayList<Consignación> consignacionesPendientes) {
 		super(nombre, apellido, cedula, login, password, tipoUsuario);
-	}
-
-
-	/*
-	 * Gettters
-	 */
-	
-	public void setGaleria(Galeria galeria) {
 		this.galeria = galeria;
+		this.viewRegistro = viewRegistro;
+		this.ofertasPendientes = ofertasPendientes;
+		this.consignacionesPendientes = consignacionesPendientes;
 	}
-	
 
-	/*
-	 * Métodos
-	 */
-	
-	public void ingresarPieza(Pieza pieza) {
-		galeria.getPiezas().add(pieza);
-	}
-	
-	public void VerificarComprador(Subasta subasta, Comprador comprador, int valorMaximoCompras) {
-		comprador.setValorMaximoCompras(valorMaximoCompras);
-		subasta.agregarComprador(comprador);
-	}
-	
-	public void verificarOfertasSubasta(Subasta subasta, Oferta oferta) {
-		ArrayList<Oferta> ofertasSubasta = subasta.getOfertas();
-		for (Oferta o : ofertasSubasta) {
-			Pieza piezaOferta = o.getPieza();
-			Comprador compradorOferta = o.getComprador();
-			//if(o.getValorOferta() >= piezaOferta.getValorMinimo() && o.getValorOferta() <= compradorOferta.getSaldoDisponible()) {
-				o.aceptarOferta(true);
-		}
-	}
+	// Getters y Setters
+    public Galeria getGaleria() {
+        return galeria;
+    }
+
+    public void setGaleria(Galeria galeria) {
+        this.galeria = galeria;
+    }
+
+    public ViewRegistro getViewRegistro() {
+        return viewRegistro;
+    }
+
+    public void setViewRegistro(ViewRegistro viewRegistro) {
+        this.viewRegistro = viewRegistro;
+    }
+
+    public HashMap<String, Oferta> getOfertasPendientes() {
+        return ofertasPendientes;
+    }
+
+    public void setOfertasPendientes(HashMap<String, Oferta> ofertasPendientes) {
+        this.ofertasPendientes = ofertasPendientes;
+    }
+
+    public ArrayList<Consignación> getConsignacionesPendientes() {
+        return consignacionesPendientes;
+    }
+
+    public void setConsignacionesPendientes(ArrayList<Consignación> consignacionesPendientes) {
+        this.consignacionesPendientes = consignacionesPendientes;
+    }
 }
-	
 
 	
-	
-	
+	// Resto de actividades del Administrador
 	
 	
 	
