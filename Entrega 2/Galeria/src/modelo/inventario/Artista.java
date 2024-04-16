@@ -1,6 +1,7 @@
 package modelo.inventario;
 
 import java.util.ArrayList;
+import modelo.Galeria;
 
 public class Artista {
 
@@ -38,13 +39,27 @@ public class Artista {
 		return nombre;
 	}
 
+	
+	public ArrayList<Pieza> getPiezas() {
+		return piezas;
+	}
+
 
 	public ColectivoArtistas getColectivo() {
 		return colectivo;
 	}
 
+
 	/* Métodos
 	 * 
 	 */
+	
+	public void agregarColectivo(ColectivoArtistas Colectivo, Galeria galeria) {
+
+	}
+	
+	public void agregarPieza(Pieza pieza) {
+		this.piezas.add(pieza);
+	}
 
 }

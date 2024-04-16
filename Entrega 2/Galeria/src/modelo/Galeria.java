@@ -7,9 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import modelo.inventario.Artista;
+import modelo.inventario.Consignacion;
 import modelo.inventario.Pieza;
+import modelo.perfiles.Administrador;
+import modelo.perfiles.Empleado;
 import modelo.perfiles.Perfil;
 import modelo.perfiles.Usuario;
+import modelo.subastas.Subasta;
+import modelo.ventas.Venta;
 
 public class Galeria {
 
@@ -17,13 +22,31 @@ public class Galeria {
 	 * Atirubutos 
 	 */
 	
-	Map<String, Usuario> Usuarios;
+	private Map<String, Usuario> Usuarios;
 
-	private List<Pieza> piezas;
+	private List<Pieza> piezasInventario;
 	
 	private List<Pieza> piezasBodega;
 	
 	private List<Pieza> piezasExhibidas;
+	
+	private List<Pieza> piezasPasadas;
+	
+	private List<Consignacion>consignaciones;
+	
+	private List<Usuario>empleados;
+	
+	private Administrador administrador;
+	
+	private Empleado cajero;//
+	
+	private List<Subasta> subastas;
+	
+	private List<Venta> ventas;
+	
+	private List<Artista> artistas;
+	
+	private List<Artista> colectivos;
 
 	
 	/*
@@ -37,9 +60,18 @@ public class Galeria {
 	
 	public Galeria() {
 		Usuarios = new HashMap<String,Usuario>();
-		piezas = new ArrayList<Pieza>();
+		piezasInventario = new ArrayList<Pieza>();
 		piezasBodega = new ArrayList<Pieza>();
 		piezasExhibidas = new ArrayList<Pieza>();
+		piezasPasadas=new ArrayList<Pieza>();
+		consignaciones= new ArrayList<Consignacion>();
+		empleados= new ArrayList<Usuario>();
+		subastas= new ArrayList<Subasta>();
+		ventas=new ArrayList<Venta>();
+		artistas=new ArrayList<Artista>();
+		colectivos=new ArrayList<Artista>();
+		administrador=new Administrador(null, null, null, null);
+		
 	}
 	
 	public Collection<Usuario> getUsuarios() {
@@ -47,7 +79,7 @@ public class Galeria {
 	}
 	
 	public Collection<Pieza> getPiezas() {
-		return piezas;
+		return piezasInventario;
 	}
 	
 	public Collection<Pieza> getPiezasBodega() {
