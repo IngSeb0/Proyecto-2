@@ -2,7 +2,7 @@ package modelo.inventario;
 
 import java.util.ArrayList;
 
-import modelo.usuarios.Compr;
+import modelo.usuarios.Comprador;
 
 public class Escultura extends Pieza {
 
@@ -21,14 +21,15 @@ public class Escultura extends Pieza {
 	private ArrayList<String > materialesConstruccion = new ArrayList<String>();
 
 	private boolean electricidad;
+	
 
 	/* Constructor
 	 * 
 	 */
 
-	public Escultura(String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Propietario propietario, int alto,
-			int ancho, int profundidad, int peso, ArrayList<String > materialesConstruccion, boolean electricidad, int idPieza) {
-		super(idPieza, titulo, fechaCreacion, lugarCreacion, artista, propietario);
+	public Escultura(String titulo, String fechaCreacion, String lugarCreacion, Artista artista, Comprador comprador, int alto,
+			int ancho, int profundidad, int peso, ArrayList<String > materialesConstruccion, boolean electricidad, int idPieza, int costo) {
+		super(idPieza, titulo, fechaCreacion, lugarCreacion, artista, costo, comprador);
 		this.alto = alto;
 		this.ancho = ancho;
 		this.profundidad = profundidad;

@@ -7,6 +7,9 @@ import modelo.inventario.Pieza;
 import modelo.subastas.Oferta;
 import modelo.subastas.Subasta;
 import modelo.ventas.MetodoPago;
+import modelo.ventas.Venta;
+import modelo.Galeria;
+import java.util.Date;
 
 public class Comprador extends Usuario {
 
@@ -92,14 +95,17 @@ public class Comprador extends Usuario {
 	/*
 	 * Métodos
 	 */
-	
-	public void hacerOfectar(int valorOferta) {
+
+	public void hacerOferta(int valorOferta, int idPieza) {
 		
 			new Oferta(subasta, piezaSubasta, this, valorOferta);
+			int pieza = Pieza.getIdPieza();
+			
 		}
 	
-	public void comprarPieza(Pieza pieza) {
-		//TODO
+	public void comprarPieza(Pieza pieza, Date fecha) {
+		
+		Venta.realizarVenta( pieza, this, fecha , saldoDisponible);
 	}
 	
 	
