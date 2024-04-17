@@ -107,6 +107,7 @@ public class ViewComprador extends View {
         			boolean hacerPeticion = getInputY_N("¿Quieres solicitar un cupo mayor de compra?");
         			if (hacerPeticion) {
         				peticion = getInput("Petición: ");
+        				
         				comprador.comprarPieza(tipoPieza, idPieza, pieza.getCostoFijo(), peticion);
         			} else {
         				mostrarMenu();

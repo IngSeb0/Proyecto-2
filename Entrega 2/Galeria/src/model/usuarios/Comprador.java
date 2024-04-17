@@ -127,23 +127,11 @@ public class Comprador extends Usuario {
 		if (peticion != null) {
 			galeria.getAdminstrador().getOfertasARevisar().put(oferta.getIdOferta(), oferta);
 		} else {
-//			galeria.getCajero().getOfertasAceptadas.add(oferta);
+			galeria.getCajero().getOfertasAceptadas().add(oferta);
 		}
 		
 		
 		
 	}
-	
-//	public void hacerOfectar(int valorOferta) {
-//		
-////			new Oferta(subasta, piezaSubasta, this, valorOferta);
-//		}
-//	
-//	public void comprarPieza(Pieza pieza) {
-//		//TODO
-//	}
-//	
-//	
-//	
 }
 

@@ -35,7 +35,7 @@ public class Cajero extends Empleado {
 	}
 
 
-	public ArrayList<Oferta> getVentas() {
+	public ArrayList<Oferta> getOfertasAceptadas() {
 		return OfertasAceptadas;
 	}
 
