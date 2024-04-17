@@ -18,6 +18,7 @@ public class Venta {
     private MetodoPago metodoPago;
     
     public Venta(Pieza pieza, Comprador comprador, String fecha, String idVenta) {
+    	
      
         this.idVenta = idVenta;
         this.pieza = pieza;

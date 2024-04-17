@@ -1,5 +1,5 @@
 package modelo.usuarios;
-import consola.ViewRegistro;
+import view.ViewRegistro;
 import modelo.Galeria;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -11,8 +11,8 @@ import modelo.ventas.Venta;
 import modelo.Galeria;
 import modelo.usuarios.Cajero;
 import java.util.Date;
-import consola.ViewRegistro;
-import consola.ViewComprador;
+import view.ViewRegistro;
+import view.ViewComprador;
 import modelo.ventas.Consignación;
 public class Comprador extends Usuario {
 
