@@ -1,6 +1,7 @@
 package model
 .usuarios;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.Galeria;
@@ -9,7 +10,7 @@ import model.ventas.Venta;
 import view.ViewCajero;
 
 
-public class Cajero extends Empleado {
+public class Cajero extends Empleado implements Serializable {
 	
 	private Galeria galeria;
 	

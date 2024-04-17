@@ -1,5 +1,6 @@
 package model.usuarios;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import model.ventas.Consignacion;
 import model.ventas.Oferta;
 import view.ViewAdministrador;
 
-public class Administrador extends Empleado {
+public class Administrador extends Empleado implements Serializable {
 
 	/*
 	 * Atributos

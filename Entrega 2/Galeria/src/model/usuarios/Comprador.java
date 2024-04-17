@@ -1,5 +1,6 @@
 package model.usuarios;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import model.ventas.Subasta;
 import model.ventas.Venta;
 import view.ViewComprador;
 
-public class Comprador extends Usuario {
+public class Comprador extends Usuario implements Serializable {
 
 	/*
 	 * Atributos

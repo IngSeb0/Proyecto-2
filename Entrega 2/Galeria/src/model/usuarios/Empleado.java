@@ -1,10 +1,12 @@
 package model.usuarios;
 
+import java.io.Serializable;
+
 import model.inventario.Pieza;
 import model.ventas.Subasta;
 import view.ViewEmpleado;
 
-public class Empleado extends Usuario {
+public class Empleado extends Usuario implements Serializable{
 
 	
 	/*
