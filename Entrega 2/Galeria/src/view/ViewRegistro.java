@@ -2,6 +2,7 @@ package view;
 
 import model.Galeria;
 import model.usuarios.Administrador;
+import model.usuarios.Comprador;
 import model.usuarios.Empleado;
 
 	public class ViewRegistro extends View {
@@ -44,8 +45,9 @@ import model.usuarios.Empleado;
 		 System.out.println("\n===========================================");
 		 System.out.println("Registrar empleado");
          System.out.println("===========================================\n");
-         System.out.println("Por favor, ingresa los datos del empleado que será registrado en el sistema.");
+         System.out.println("Por favor, ingresa los datos del empleado.");
          registrarNuevoUsuario("Empleado");
+         registrarNuevoUsuario("Administrador");
 	}
 
 
@@ -56,9 +58,9 @@ import model.usuarios.Empleado;
 	
 	public void registrarNuevoUsuario(String tipoUsuario) {
 		
-		String nombre = capitalize(getInput("\nNombre: "));
-		String apellido = capitalize(getInput("\nApellido: "));
-		String cedula = capitalize(getInput("\nCédula: "));
+		String nombre = capitalize(getInput("\nNombre: ").trim());
+		String apellido = capitalize(getInput("\nApellido: ").trim());
+		String cedula = String.valueOf(getInputInt("\nCédula: "));
 		
 		switch(tipoUsuario) {
 		
@@ -69,6 +71,7 @@ import model.usuarios.Empleado;
 			galeria.setAdministrador(administrador);
 			System.out.println("\nUsuario creado con éxito.");
 			ViewAdministrador viewAdministrador = new ViewAdministrador(administrador);
+			administrador.setViewAdministrador(viewAdministrador);
 			viewAdministrador.mostrarMenu();
 			break;
 			
@@ -77,12 +80,22 @@ import model.usuarios.Empleado;
 			password = galeria.generarPassword();
 			Empleado empleado = new Empleado(nombre, apellido, cedula, login, password, tipoUsuario);
 			galeria.addEmpleado(empleado);
-			System.out.println("Credenciales del empleado; ");
+			System.out.println("\nCredenciales del empleado; ");
 			System.out.println("\nlogin: " + login);
-			System.out.println("\npassword: " + password);
+			System.out.println("password: " + password);
+			System.out.println("\nEmpleado registrado con éxito.");
+			galeria.getAdminstrador().getViewAdministrador().mostrarMenu();
 			break;
 	
 		case "Comprador":
+			login = validarLogin();
+			password = validarPassword();
+			Comprador comprador = new Comprador(nombre, apellido, cedula, login, password, tipoUsuario);
+			ViewComprador viewComprador = new ViewComprador(comprador);
+			comprador.setViewComprador(viewComprador);
+			comprador.setGaleria(galeria);
+			galeria.addUsuario(comprador);
+			comprador.getViewComprador().mostrarMenu();
 			break;
 		}
 		

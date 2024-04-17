@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Galeria;
+import model.inventario.Artista;
 import model.inventario.Escultura;
 import model.inventario.Pieza;
 import model.ventas.Consignacion;
-import modelo.subastas.Oferta;
+import model.ventas.Oferta;
 import view.ViewAdministrador;
 
 public class Administrador extends Empleado {
@@ -15,8 +16,6 @@ public class Administrador extends Empleado {
 	/*
 	 * Atributos
 	 */
-	
-	private Galeria galeria;
 	
 	private HashMap<String, Oferta> ofertasARevisar = new HashMap<String, Oferta>();
 	
@@ -40,15 +39,6 @@ public class Administrador extends Empleado {
 	 * Gettters
 	 */
 	
-	public Galeria getGaleria() {
-		return galeria;
-	}
-
-
-	public void setGaleria(Galeria galeria) {
-		this.galeria = galeria;
-	}
-
 
 	public HashMap<String, Oferta> getOfertasARevisar() {
 		return ofertasARevisar;
@@ -70,7 +60,7 @@ public class Administrador extends Empleado {
 	}
 
 
-	public ViewAdministrador getViewAdministrador(Galeria galeria, Administrador administrador) {
+	public ViewAdministrador getViewAdministrador() {
 		return viewAdministrador;
 	}
 
@@ -84,7 +74,7 @@ public class Administrador extends Empleado {
 	 */
 	
 	public void registrarEmpleado() {
-		galeria.getViewRegistro().registrarNuevoUsuario("Empleado");;
+		galeria.getViewRegistro().mostrarMenuUsuario("Empleado");;
 	}
 	
 	public void ingresarPieza(Pieza pieza) {
@@ -93,24 +83,49 @@ public class Administrador extends Empleado {
 		HashMap<String, Pieza> piezas = galeria.getPiezasInventario().get(tipoPieza);
 		piezas.put(idPieza, pieza);
 		galeria.getPiezasPasadas().add(pieza);
+		if (pieza.getCostoFijo() > 0) {
+			galeria.getPiezasDisponibles().add(pieza);
+		}
 		if(pieza.getUbicacion().equals("Bodega")) {
 			galeria.getPiezasBodega().add(pieza);
 		} else {
 			galeria.getPiezasExhibidas().add(pieza);
 		}
-		agregarPiezaAArtista(pieza.getNombreArtista(), pieza);
-		
-		
 	}
 	
-	private void agregarPiezaAArtista(String nombreArtista, Pieza pieza) {
-		//Implementar
+	public void agregarPiezaAArtista(String idPieza, String tipoPieza, String nombreArtista, String nombreColectivo, boolean perteneceAColectivo) {
+		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
+		if (nombreArtista.equals(nombreColectivo)) {
+			Artista colectivo = new Artista(nombreColectivo);
+			colectivo.setColectivo(true);
+			galeria.addArtista(colectivo);
+			pieza.addArtista(colectivo);
+			
+		} else {
+			Artista artista = new Artista(nombreArtista);
+			galeria.addArtista(artista);
+			pieza.addArtista(artista);
+			if (perteneceAColectivo) {
+				if(galeria.getArtistas().containsKey(nombreColectivo)) {
+					Artista colectivo = galeria.getArtista(nombreArtista);
+					colectivo.addArtista(artista);
+					pieza.addArtista(colectivo);
+				} else {
+					Artista colectivo = new Artista(nombreColectivo);
+					colectivo.addArtista(artista);
+					galeria.addArtista(colectivo);
+					pieza.addArtista(colectivo);
+				}
+			}
+		}
+		
 	}
 
-	public void ingresarEscultura(String ubicacion, String tituloPieza, String anioCreacion,String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, String dimensiones, String peso, String materialesConstruccion, boolean requiereElectricidad) {
+	public String ingresarEscultura(String ubicacion, String tituloPieza, String anioCreacion,String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, String dimensiones, String peso, String materialesConstruccion, boolean requiereElectricidad) {
 		String idPieza = String.valueOf(galeria.getPiezasPasadas().size() + 1);
 		Escultura escultura = new Escultura(idPieza, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad);
 		ingresarPieza(escultura);
+		return idPieza;
 	}
 }	
 	

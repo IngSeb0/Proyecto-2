@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import model.inventario.Artista;
-import model.inventario.ColectivoArtistas;
 import model.inventario.Pieza;
 import model.persistencia.CentralPersistencia;
 import model.usuarios.Administrador;
@@ -15,6 +14,7 @@ import model.usuarios.Usuario;
 import model.ventas.Subasta;
 import model.ventas.Venta;
 import model.ventas.Consignacion;
+import view.ViewEmpleado;
 import view.ViewRegistro;
 
 
@@ -36,7 +36,7 @@ public class Galeria {
 	 * Inventario
 	 */
 	
-	private HashMap<String, HashMap<String, Pieza>> piezasInventario = new HashMap<String, HashMap<String, Pieza>>();
+	private HashMap<String, HashMap<String, Pieza>> piezasInventario = new HashMap<>();
 	
 	private ArrayList<Pieza> piezasExhibidas = new ArrayList<Pieza>();
 	
@@ -44,9 +44,9 @@ public class Galeria {
 
 	private ArrayList<Pieza> piezasPasadas = new ArrayList<Pieza>();
 	
-	private HashMap<String, Artista> artistas = new HashMap<String, Artista>();
+	private ArrayList<Pieza> piezasDisponibles = new ArrayList<Pieza>();
 	
-	private HashMap<String, ColectivoArtistas> colectivos = new HashMap<String, ColectivoArtistas>();
+	private HashMap<String, Artista> artistas = new HashMap<String, Artista>();
 	
 	/*
 	 * Ventas
@@ -85,13 +85,21 @@ public class Galeria {
 		if (centralPersistencia.getGaleria() != null) {
 			//cargar todo
 		} else {
-			ViewRegistro viewRegistro = new ViewRegistro(this);
-			viewRegistro.mostrarMenuUsuario("Administrador");
 			piezasInventario.put("Escultura", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Pintura", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Impresión", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Fotografía", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Vídeos", (new HashMap<String, Pieza>()));
+//			subastas = new HashMap<String, Subasta>();
+//			ventas = new HashMap<String, Venta>();
+//			consignaciones = new ArrayList<Consignacion>();
+//			piezasExhibidas = new ArrayList<Pieza>();
+//			piezasBodega = new ArrayList<Pieza>();
+//			piezasPasadas = new ArrayList<Pieza>();
+//			artistas = new HashMap<String, Artista>();
+			ViewRegistro viewRegistro = new ViewRegistro(this);
+			setViewRegistro(viewRegistro);
+			viewRegistro.mostrarMenuUsuario("Administrador");
 		}
 	}
 	
@@ -141,6 +149,9 @@ public class Galeria {
 	}
 
 	public void addEmpleado(Empleado empleado) {
+		ViewEmpleado viewEmpleado = new ViewEmpleado(empleado);
+		empleado.setViewEmpleado(viewEmpleado);
+		empleado.setGaleria(this);
 		this.empleados.put(empleado.getLogin(), empleado);
 		addUsuario(empleado);
 //		centralPersistencia.guardarUsuarios();
@@ -149,7 +160,6 @@ public class Galeria {
 	public Empleado getEmpleado(String numeroCedula) {
 		Empleado empleado = empleados.get(numeroCedula);
 		return empleado;
-//		centralPersistencia.guardarUsuarios();
 	}
 
 	// Piezas inventario
@@ -192,13 +202,26 @@ public class Galeria {
 	public void setPiezasPasadas(ArrayList<Pieza> piezasPasadas) {
 		this.piezasPasadas = piezasPasadas;
 	}
+	
+
+	public ArrayList<Pieza> getPiezasDisponibles() {
+		return piezasDisponibles;
+	}
+
+	public void addPiezasDisponibles(Pieza pieza) {
+		this.piezasDisponibles.add(pieza);
+	}
 
 	public HashMap<String, Artista> getArtistas() {
 		return artistas;
 	}
 
-	public void setArtistas(HashMap<String, Artista> artistas) {
-		this.artistas = artistas;
+	public void addArtista(Artista artista) {
+		this.artistas.put(artista.getNombre(), artista);
+	}
+	
+	public Artista getArtista(String nombreArtista) {
+		return artistas.get(nombreArtista);
 	}
 
 	public HashMap<String, Subasta> getSubastas() {
@@ -244,10 +267,12 @@ public class Galeria {
 	/*
 	 * Métodos
 	 */
-	
+	public void guardarVenta(String idVenta, Venta venta) {
+		ventas.put(idVenta , venta);
+		}
 	
 	public String generarLogin(String nombre, String apellido) {
-		String login = nombre.substring(0,1).toLowerCase() + apellido.toLowerCase();
+		String login = nombre.substring(0,1).toLowerCase() + "." + apellido.toLowerCase();
 		int i = 1;
 		while (usuarios.containsKey(login)) {
 				login = login + String.valueOf(i);

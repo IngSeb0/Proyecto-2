@@ -1,7 +1,10 @@
 package model.usuarios;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
+import model.Galeria;
+import model.inventario.Pieza;
 import view.ViewLogin;
 
 //TODO Serial warning serializable
@@ -10,6 +13,8 @@ public abstract class Usuario implements Serializable {
 	/*
 	 * Atributos
 	 */
+	
+	protected Galeria galeria;
 	
 	protected String nombre;
 	
@@ -101,7 +106,19 @@ public abstract class Usuario implements Serializable {
 
 	public void setViewLogin(ViewLogin viewLogin) {
 		this.viewLogin = viewLogin;
+	}
+
+	public Galeria getGaleria() {
+		return galeria;
+	}
+
+	public void setGaleria(Galeria galeria) {
+		this.galeria = galeria;
 	}	
+	
+	/*
+	 * Métodos
+	 */
 	
 
 }

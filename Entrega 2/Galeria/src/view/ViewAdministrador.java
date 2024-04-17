@@ -24,11 +24,15 @@ public class ViewAdministrador extends View {
 		System.out.println("Bienvenido, administrador!");
         System.out.println("===========================================\n");
         
-        //TODO organizar menú
+        //menú
         System.out.println("1. Ingresar pieza a inventario");
-        System.out.println("3. Configurar subasta");
-        System.out.println("4. Registrar empleado");
-        System.out.println("5. Registrar cajero");
+        System.out.println("2. Configurar subasta");
+        System.out.println("3. Iniciar subasta");
+        System.out.println("4. Revisar ofertas pendientes");
+        System.out.println("5. Revisar consignaciones pendientes");
+        System.out.println("6. Registrar empleado");
+        System.out.println("7. Configurar cajero");
+        System.out.println("\n0. Salir");
       
         String opcion = getInput("\nSelecciona una opción: ");
         seleccionarOpcion(opcion);
@@ -39,12 +43,11 @@ public class ViewAdministrador extends View {
 		switch(opcion) {
 		case "1":
 			ingresarPiezaAInventario();
-		case "3":
-//			crearSubasta();
+		case "6":
+			registrarEmpleado();
 			break;
-		
-		case "4":
-//			registrarEmpleado();
+		case "7":
+			
 		break;
 		}
 		mostrarMenu();
@@ -56,11 +59,10 @@ public class ViewAdministrador extends View {
 	
 	public void ingresarPiezaAInventario() {
 		System.out.println("--> 1. Ingresar pieza a inventario");
-		String salir = getInput("Ingresa: [0]").trim();
+		String salir = getInput("Ingresa cualquier tecla para continuar ó [0] para regresar:").trim();
 		if (salir.equals("0")) {
 			mostrarMenu();
 		} else {
-			
 			System.out.println("\n¿Adónde ingresa la pieza?");
 			System.out.println("1. Exhibición");
 	        System.out.println("2. Bodega");
@@ -68,53 +70,75 @@ public class ViewAdministrador extends View {
 	        try {
 	        	if (ubicacion.equals("1")) {
 	        		ubicacion = "Exhibición";
-	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
-	        	if (ubicacion.equals("2")) {
+	        	else if (ubicacion.equals("2")) {
 	        		ubicacion = "Bodega";
+	        	} else {
 	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
 	        } catch (IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
-	        
-			System.out.println("Ingresa la información de la pieza.");
-			
+	        System.out.println("Pieza a " + ubicacion);
+			System.out.println("\nInformación del autor.");
+			System.out.println("\n¿Es un artista individual o un colectivo de artistas?");
+	        System.out.println("1. Artista individual");
+	        System.out.println("2. Colectivo de artistas");
+	        System.out.println("0. Artista anónimo");
+	        String nombreArtista = getInput("\nEscoge una opción:").trim();
+	        String nombreColectivo = null;
+	        boolean perteneceAColectivo = false;
+			try {
+	        	if (nombreArtista.equals("1")) {
+	        		nombreArtista = getInput("\nNombre del artista:").trim();
+	        		boolean c = getInputY_N("\n¿El artista pertenece a algún colectivo de artista?");
+	        		if (c) {
+	        			nombreColectivo = getInput("\nNombre del colectivo:").trim();
+	        			perteneceAColectivo = true;
+	        		}
+	        	}
+	        	else if (nombreArtista.equals("2")) {
+	        		nombreArtista = getInput("\nNombre del colectivo:").trim();
+	        		nombreColectivo = nombreArtista;
+	        		perteneceAColectivo = true;
+	        	} else if (nombreArtista.equals("0")) {
+					nombreArtista = "Anónimo";
+					nombreColectivo = null;
+			        perteneceAColectivo = false;
+				}
+	        	else {
+	        		throw new IllegalArgumentException("Opción inválida.");
+	        	}
+	        } catch (IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+	        }
+			System.out.println("\nInformación de la pieza.");
 			String tituloPieza = getInput("\nTítulo de la pieza: ").trim();
-			String nombreArtista = getInput("\nNombre del autor: \n(Si es anónimo ingresa [0]").trim();
-			if (nombreArtista.equals("0")) {
-				nombreArtista = "Anónimo";
-			}
 			String anioCreacion = getInputFecha("\nAño de creación: ").trim();
-			String lugarCreacion = getInput("\nLugar de creación: ").trim();
-			
+			String lugarCreacion = capitalize(getInput("\nLugar de creación: ")).trim();
 			System.out.println("\nTipo de la pieza:");
 			System.out.println("1. Escultura");
 	        System.out.println("2. Pintura");
 	        System.out.println("3. Impresión");
 	        System.out.println("4. Fotografía");
 	        System.out.println("5. Vídeos");
-	        
 	        String tipoPieza = getInput("\nEscoge una opción:").trim();
 	        try {
 	        	if (tipoPieza.equals("1")) {
 	        		tipoPieza = "Escultura";
-	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
-	        	if (tipoPieza.equals("2")) {
+	        	else if (tipoPieza.equals("2")) {
 	        		tipoPieza = "Pintura";
-	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
-	        	if (tipoPieza.equals("3")) {
+	        	else if (tipoPieza.equals("3")) {
 	        		tipoPieza = "Impresión";
-	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
-	        	if (tipoPieza.equals("4")) {
+	        	else if (tipoPieza.equals("4")) {
 	        		tipoPieza = "Fotografía";
-	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
-	        	if (tipoPieza.equals("5")) {
+	        	else if (tipoPieza.equals("5")) {
 	        		tipoPieza = "Vídeos";
+	        	} else {
 	        		throw new IllegalArgumentException("Opción inválida.");
 	        	}
 	        } catch (IllegalArgumentException e) {
@@ -122,34 +146,40 @@ public class ViewAdministrador extends View {
 	        }
 	        System.out.println("¿La pieza tiene precio de venta? Ingresa [0] si no.");
 	        int costoFijo = getInputInt("Precio de venta: ");
-            ingresarTipoPieza(tituloPieza, ubicacion, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza);
+            ingresarTipoPieza(tituloPieza, ubicacion, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, nombreColectivo, perteneceAColectivo);
 	    } 
 	}
 	
-	public void ingresarTipoPieza(String tituloPieza, String ubicacion, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza) {
+	public void ingresarTipoPieza(String tituloPieza, String ubicacion, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, String nombreColectivo, boolean perteneceAColectivo) {
 		switch(tipoPieza) {
 		case "Escultura":
-			System.out.println("\nDimensiones:");
+			System.out.println("\nDimensiones Centímetros):");
 			int alto = getInputInt("Alto: ");
 			int largo = getInputInt("Largo: ");
 			int ancho = getInputInt("Ancho: ");
 			String dimensiones = ( String.valueOf(alto) + "-" + String.valueOf(largo) + "-" + String.valueOf(ancho));
-			String peso = String.valueOf(getInputInt("\nPeso: "));
-			String materialesConstruccion = String.valueOf(getInputInt("\nMateriales de construncción: "));
-			boolean requiereElectricidad = getInputY_N("¿La escultura requiere electricidad?");
-			administrador.ingresarEscultura(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad);
-		
+			String peso = String.valueOf(getInputInt("\nPeso (Kilogramos): "));
+			String materialesConstruccion = String.valueOf(getInput("\nMateriales de construcción:  "));
+			boolean requiereElectricidad = getInputY_N("\n¿La escultura requiere electricidad?");
+			String idPieza = administrador.ingresarEscultura(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad);
+			administrador.agregarPiezaAArtista(idPieza, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+		case "Pintura":
 			
-		case "3":
-//			crearSubasta();
+			
 			break;
 		
-		case "4":
-//			registrarEmpleado();
+		case "":
+
 		break;
 		}
-        
+		System.out.println("\nPieza ingresada con éxito:" + nombreArtista + ". (" + anioCreacion + "). " + tituloPieza + " [" + tipoPieza + "] .");
+		mostrarMenu();
 	}
+	
+	public void registrarEmpleado() {
+		administrador.registrarEmpleado();
+	}
+			
 	
 }
 

@@ -3,7 +3,10 @@ package view;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import model.inventario.Pieza;
 
 public abstract class View {
 
@@ -39,29 +42,42 @@ public abstract class View {
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
+	
+	// Mostrar la información de una pieza
+	public String mostrarPieza(Pieza pieza) {
+		String infoPieza = pieza.getIdPieza() + ": " + pieza.getTituloPieza() + ". [" + pieza.getTipoPieza() + "]. $" + pieza.getCostoFijo();
+		return infoPieza;
+	}
     
     
 	// Validar input de tipo fecha
 	public String getInputFecha(String mensaje) {
-        while (true) {
+		while (true) {
             System.out.println(mensaje);
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             try {
-                LocalDate date = LocalDate.parse(input, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                if (date.isBefore(LocalDate.now())) {
-                    throw new IllegalArgumentException("La fecha no puede ser anterior a la fecha actual.");
+                LocalDate date;
+                if (input.matches("\\d{4}")) {
+                    int year = Integer.parseInt(input);
+                    if (year > 2024) {
+                        throw new IllegalArgumentException("El año no puede ser mayor a 2024.");
+                    }
+                    date = LocalDate.of(year, 1, 1); 
+                } else {
+                    date = LocalDate.parse(input, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    if (date.isBefore(LocalDate.now())) {
+                        throw new IllegalArgumentException("La fecha no puede ser anterior a la fecha actual.");
+                    }
                 }
-                if (date.getYear() > 2024) {
-                    throw new IllegalArgumentException("El año no puede ser mayor a 2024.");
-                }
-                return mensaje;
+                return input; 
             } catch (DateTimeParseException e) {
-                System.out.println("Formato de fecha inválido. Por favor, ingrese la fecha en formato DD-MM-YYYY.");
+                System.out.println("Formato de fecha inválido.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+	
 	
 	// Validad input de tipo entero
 	public int getInputInt(String mensaje) {
@@ -71,7 +87,8 @@ public abstract class View {
                 int numero = scanner.nextInt();
                 scanner.nextLine();
                 return numero; // Return the successfully parsed integer
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
+            	System.out.println("La información ingresada no es un número.");
                 scanner.nextLine();
             }
         }

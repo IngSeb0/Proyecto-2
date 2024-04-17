@@ -1,12 +1,16 @@
 package model.usuarios;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.UUID;
 
 import model.inventario.Pieza;
-import modelo.ventas.MetodoPago;
+import model.ventas.Consignacion;
 import model.ventas.Oferta;
 import model.ventas.Subasta;
+import model.ventas.Venta;
+import view.ViewComprador;
 
 public class Comprador extends Usuario {
 
@@ -18,30 +22,36 @@ public class Comprador extends Usuario {
 	
 	private ArrayList<Pieza> piezasPasadas = new ArrayList<Pieza>();
 	
-	private HashMap<String, String> facturas = new HashMap<String, String>();
-	
-	private ArrayList<MetodoPago> metodosPago;
+//	private HashMap<String, String> facturas = new HashMap<String, String>();
 	
 	private int valorMaximoCompras;
 	
-	private int valorTotalCompras;
+	private int totalComprasRealizadas;
 	
 	private int saldoDisponible;
 	
-	private Pieza piezaSubasta;
+	private Subasta subastaEnCurso;
 	
-	private Subasta subasta;
+	private Pieza piezaSubastaEnCurso;
+	
+	private ArrayList<Consignacion> consignaciones = new  ArrayList<Consignacion>();
+	
+	/*
+	 * Views
+	 */
+	
+	private ViewComprador viewComprador;
 	
 	/*
 	 * Constructor
 	 */
 	
-	public Comprador(String nombre, String apellido, String login, String password, String cedula, String tipoUsuario) {
+	public Comprador(String nombre, String apellido,  String cedula ,String login, String password, String tipoUsuario) {
 		super(nombre, apellido, cedula, login, password, tipoUsuario);
 	}
 
 	/*
-	 * Getters
+	 * Getters + Setters
 	 */
 
 	public ArrayList<Pieza> getPiezasActuales() {
@@ -52,14 +62,10 @@ public class Comprador extends Usuario {
 		return piezasPasadas;
 	}
 	
-	public HashMap<String, String> getFacturas() {
-		return facturas;
-	}
+//	public HashMap<String, String> getFacturas() {
+//		return facturas;
+//	}
 	
-	public ArrayList<MetodoPago> getMetodosPago() {
-		return metodosPago;
-	}
-
 	public int getValorMaximoCompras() {
 		return valorMaximoCompras;
 	}
@@ -68,16 +74,16 @@ public class Comprador extends Usuario {
 		this.valorMaximoCompras = valorMaximoCompras;
 	}
 	
-	public int getValorTotalCompras() {
-		return valorTotalCompras;
+	public int getTotalComprasRealizadas() {
+		return totalComprasRealizadas;
 	}
 	
-	public void setValorTotalCompras(int valorCompra) {
-		this.valorTotalCompras += valorCompra;
+	public void setgetTotalComprasRealizadas(int valorCompra) {
+		this.totalComprasRealizadas += valorCompra;
 	}
 	
-	public void verPieza(Pieza pieza) {
-		this.piezaSubasta = pieza;
+	public Pieza getPiezaSubastaEnCurso() {
+		return piezaSubastaEnCurso;
 	}
 	
 	public int getSaldoDisponible() {
@@ -86,23 +92,58 @@ public class Comprador extends Usuario {
 	
 	public void setSaldoDisponible() {
 		int valorMaximoCompras = getValorMaximoCompras();
-		int valorTotalCompras = getValorTotalCompras();
-		this.saldoDisponible = valorMaximoCompras - valorTotalCompras;
+		int totalComprasRealizadas = getTotalComprasRealizadas();
+		this.saldoDisponible = valorMaximoCompras - totalComprasRealizadas;
 	}
+	
+	
+	public Subasta getSubastaEnCurso() {
+		return subastaEnCurso;
+	}
+
+	public void setSubastaEnCurso(Subasta subastaEnCurso) {
+		this.subastaEnCurso = subastaEnCurso;
+	}
+
+	public ViewComprador getViewComprador() {
+		return viewComprador;
+	}
+
+	public void setViewComprador(ViewComprador viewComprador) {
+		this.viewComprador = viewComprador;
+	}
+
 	/*
 	 * Métodos
 	 */
 	
-	public void hacerOfectar(int valorOferta) {
-		
-//			new Oferta(subasta, piezaSubasta, this, valorOferta);
+	public void verPiezasDisponibles() {
+		return;
+	}
+
+	public void comprarPieza(String tipoPieza, String idPieza, int valorOferta, String peticion) {
+		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
+		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion);
+		if (peticion != null) {
+			galeria.getAdminstrador().getOfertasARevisar().put(oferta.getIdOferta(), oferta);
+		} else {
+//			galeria.getCajero().getOfertasAceptadas.add(oferta);
 		}
-	
-	public void comprarPieza(Pieza pieza) {
-		//TODO
+		
+		
+		
 	}
 	
-	
-	
+//	public void hacerOfectar(int valorOferta) {
+//		
+////			new Oferta(subasta, piezaSubasta, this, valorOferta);
+//		}
+//	
+//	public void comprarPieza(Pieza pieza) {
+//		//TODO
+//	}
+//	
+//	
+//	
 }
 

@@ -47,7 +47,16 @@ public class Empleado extends Usuario {
 
 	public void setPiezaSubastaEnCurso(Pieza piezaSubastaEnCurso) {
 		this.piezaSubastaEnCurso = piezaSubastaEnCurso;
+	}
+
+	public ViewEmpleado getViewEmpleado() {
+		return viewEmpleado;
+	}
+
+	public void setViewEmpleado(ViewEmpleado viewEmpleado) {
+		this.viewEmpleado = viewEmpleado;
 	}	
+	
 	
 	/*
 	 * Métodos

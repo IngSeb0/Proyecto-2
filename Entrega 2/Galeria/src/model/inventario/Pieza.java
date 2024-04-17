@@ -2,7 +2,6 @@ package model.inventario;
 import java.util.ArrayList;
 
 import model.ventas.Consignacion;
-import modelo.inventario.Artista;
 import model.usuarios.Comprador;
 
 public abstract class Pieza {
@@ -42,6 +41,7 @@ public abstract class Pieza {
     public Pieza(String idPieza, String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza) {
     
     	this.idPieza = idPieza;
+    	this.tipoPieza = tipoPieza;
     	this.ubicacion = ubicacion;
     	this.tituloPieza = tituloPieza;
     	this.anioCreacion = anioCreacion;

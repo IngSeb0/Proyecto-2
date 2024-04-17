@@ -1,9 +1,5 @@
 package model.inventario;
 
-import java.util.ArrayList;
-
-import modelo.inventario.Artista;
-
 public class Escultura extends Pieza {
 
 	/*Atributos

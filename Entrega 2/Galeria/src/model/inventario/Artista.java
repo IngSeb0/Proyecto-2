@@ -2,8 +2,6 @@ package model.inventario;
 
 import java.util.ArrayList;
 
-import model.inventario.Pieza;
-
 public class Artista {
 
 	/* 
@@ -14,7 +12,9 @@ public class Artista {
 
 	protected ArrayList<Pieza> piezas = new ArrayList<Pieza>(); 
 
-	private ColectivoArtistas colectivo;
+	private boolean isColectivo;
+	
+	private ArrayList<Artista> colectivo;
 
 	/* 
 	 * Constructor
@@ -25,30 +25,35 @@ public class Artista {
 	}
 
 	/* 
-	 * Getters
+	 * Getters + Setters
 	 */
 
 	public String getNombre() {
 		return nombre;
 	}
+	
+	public boolean isColectivo() {
+		return isColectivo;
+	}
+	
+	public void setColectivo(boolean is) {
+		this.isColectivo = is;
+	}
 
 	public ArrayList<Pieza> getPiezas() {
 		return piezas;
 	}
-
-	public ColectivoArtistas getColectivo() {
-		return colectivo;
-	}
-
-	/* Métodos
-	 * 
-	 */
-
-	public void agregarColectivo(ColectivoArtistas colectivo) {
-		this.colectivo = colectivo;
-	}
-
-	public void agregarPieza(Pieza pieza) {
+	
+	public void addPieza(Pieza pieza) {
 		this.piezas.add(pieza);
 	}
+	
+	public ArrayList<Artista> getColectivo() {
+		return colectivo;
+	}
+	
+	public void addArtista(Artista artista) {
+		this.colectivo.add(artista);
+	}
+
 }
