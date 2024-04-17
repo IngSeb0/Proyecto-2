@@ -1,6 +1,7 @@
 package modelo.inventario;
 
 import java.util.ArrayList;
+import modelo.Galeria;
 
 public class ColectivoArtistas extends Artista {
 
@@ -14,10 +15,10 @@ public class ColectivoArtistas extends Artista {
 	 * Constructor
 	 */
 
-	public ColectivoArtistas(String nombre, Artista artista) {
+	public ColectivoArtistas(String nombre, Artista artista, Galeria galeria) {
 		super(nombre);
 		this.agregarArtista(artista);
-		artista.agregarColectivo(this);
+		artista.agregarColectivo(this,galeria);
 	}
 
 	/* 

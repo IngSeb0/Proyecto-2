@@ -1,6 +1,8 @@
 package modelo.inventario;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import modelo.Galeria;
 
 public class Artista {
@@ -55,6 +57,8 @@ public class Artista {
 	 */
 	
 	public void agregarColectivo(ColectivoArtistas Colectivo, Galeria galeria) {
+		HashMap<String, Artista> artistas= galeria.getArtistas();
+		artistas.put(nombre, Colectivo);
 
 	}
 	
