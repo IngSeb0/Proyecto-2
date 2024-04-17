@@ -2,9 +2,12 @@ package view;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 import model.Galeria;
 import model.ventas.Subasta;
+import model.ventas.Oferta;
 import model.usuarios.Administrador;
 import model.usuarios.Cajero;
 import model.usuarios.Empleado;
@@ -12,6 +15,7 @@ import model.usuarios.Empleado;
 public class ViewAdministrador extends View {
 	
 	private Administrador administrador;
+	private Galeria galeria;
 	
 	public ViewAdministrador(Administrador administrador) {
 		administrador.setViewAdministrador(this);
@@ -183,11 +187,24 @@ public class ViewAdministrador extends View {
 	public void registrarEmpleado() {
 		administrador.registrarEmpleado();
 	}
-	public void Revisarofertaspendientes() {
-		HashMap<String, Oferta> = 
-		
-	
-	}
+	 public void RevisarOfertasPendientes() {
+	        HashMap<String, Oferta> ofertas = administrador.getOfertasARevisar();
+	        Scanner scanner = new Scanner(System.in);
+
+	        System.out.println("Ofertas Pendientes:");
+	        for (Oferta oferta : ofertas.values()) {
+	            System.out.println("ID: " + oferta.getIdOferta() + ", Monto: " + oferta.getValorOferta() + ", Fecha: " + oferta.getFecha());
+	            // Imprimir otras propiedades de la oferta según sea necesario
+	            System.out.print("¿Desea aceptar esta oferta? (S/N): ");
+	            String respuesta = scanner.nextLine();
+	            if (respuesta.equalsIgnoreCase("S")) {
+	            	galeria.getCajero().getOfertasAceptadas().add(oferta);
+	                System.out.println("Oferta aceptada correctamente.");
+	            } else {
+	                System.out.println("Oferta rechazada.");
+	            }
+	        }
+	    }
 	
 }
 
