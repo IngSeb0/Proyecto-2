@@ -2,6 +2,7 @@ package modelo.ventas;
 import modelo.inventario.Pieza;
 import java.util.Date; 
 import modelo.usuarios.Comprador;
+import modelo.Galeria;
 import modelo.usuarios.Administrador;
 
 
@@ -10,20 +11,21 @@ import modelo.usuarios.Administrador;
 public class Venta {
     
     private static int contadorVentas = 0;
-    private int idVenta;
+    private String idVenta;
     private Pieza pieza;
     private Comprador comprador;
     private String fecha;
     private MetodoPago metodoPago;
     
-    public Venta(Pieza pieza, Comprador comprador, String fecha) {
-        this.idVenta = ++contadorVentas;
+    public Venta(Pieza pieza, Comprador comprador, String fecha, String idVenta) {
+     
+        this.idVenta = idVenta;
         this.pieza = pieza;
         this.comprador = comprador;
         this.fecha = fecha;
     }
     
-    public int getIdVenta() {
+    public String getIdVenta() {
         return idVenta;
     }
     
@@ -38,24 +40,44 @@ public class Venta {
     public String getFecha() {
         return fecha;
     }
-    
-    public static void realizarVenta( Pieza pieza, Comprador comprador, String fecha, int precio) {
-        
-    	if (compradorSerio(comprador, precio)) {
-            Venta venta = new Venta(pieza, comprador, fecha);
-            venta.guardarVenta();
-            System.out.println("Venta realizada con éxito. ID de venta: " + venta.getIdVenta());
-            }}
-    
-        
 
-    private static boolean compradorSerio(Comprador comprador, int Costopieza) {
-    	
-            return comprador.getSaldoDisponible() >= Costopieza;
-        }
-        
+	public static int getContadorVentas() {
+		return contadorVentas;
+	}
 
-    public void guardarVenta() {
-        BaseDeDatosVenta.guardarVenta(this);
-    }
+	public static void setContadorVentas(int contadorVentas) {
+		Venta.contadorVentas += 1;
+	}
+
+	public MetodoPago getMetodoPago() {
+		return metodoPago;
+	}
+
+	public void setMetodoPago(MetodoPago metodoPago) {
+		this.metodoPago = metodoPago;
+	}
+
+	public void setIdVenta(String idVenta) {
+		this.idVenta = idVenta;
+	}
+
+	public void setPieza(Pieza pieza) {
+		this.pieza = pieza;
+	}
+
+	public void setComprador(Comprador comprador) {
+		this.comprador = comprador;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+    
 }
+    
+   
+    
+        
+
+   
+

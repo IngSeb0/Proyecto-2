@@ -27,7 +27,48 @@ public class Consignación {
         consignacionesPendientes.add(this);
     }
 
+	public Pieza getPieza() {
+		return pieza;
+	}
+
+	public void setPieza(Pieza pieza) {
+		this.pieza = pieza;
+	}
+
+	public String getModoConsignacion() {
+		return modoConsignacion;
+	}
+
+	public void setModoConsignacion(String modoConsignacion) {
+		this.modoConsignacion = modoConsignacion;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public Administrador getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Administrador administrador) {
+		this.administrador = administrador;
+	}
+
+	public Comprador getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Comprador propietario) {
+		this.propietario = propietario;
+	}
+
     // Getters y Setters
     // ...
+    
 }
 

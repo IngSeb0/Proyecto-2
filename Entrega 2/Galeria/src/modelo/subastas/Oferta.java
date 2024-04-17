@@ -63,8 +63,8 @@ public class Oferta {
 		return aceptada;
 	}
 	
-	public void aceptarOferta() {
+	public void aceptarOferta(boolean aceptada) {
 		this.aceptada = aceptada;
 	}
-	public void rechazarOferta (boolean aceptada)
+	
 }

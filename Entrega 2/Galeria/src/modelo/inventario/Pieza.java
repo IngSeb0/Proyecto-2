@@ -8,7 +8,7 @@ import modelo.ventas.Venta;
 
 public abstract class Pieza {
 
-    protected int idPieza;
+    protected String idPieza;
     protected String titulo;
     protected String fechaCreacion;
     protected String lugarCreacion;
@@ -17,7 +17,7 @@ public abstract class Pieza {
     protected ArrayList<Artista> artistas;
     protected Comprador propietario;
 
-    public Pieza(int idPieza, String titulo, String fechaCreacion, String lugarCreacion, Artista artista, int costo, Comprador propietario) {
+    public Pieza(String idPieza, String titulo, String fechaCreacion, String lugarCreacion, Artista artista, int costo, Comprador propietario) {
         this.idPieza = idPieza;
         this.titulo = titulo;
         this.fechaCreacion = fechaCreacion;
@@ -36,12 +36,68 @@ public abstract class Pieza {
         this.disponibilidad = true; // Por defecto, la pieza está disponible para la venta
     }
 
-    public void vender( Comprador comprador, Date fecha) {
-        if (disponibilidad)  {
-            Venta.realizarVenta( this, comprador, fecha, this.costo);
-            disponibilidad= false;
-        } else {
-            System.out.println("La pieza ya no está disponible para la venta.");
-        }
-    }
+    public String getIdPieza() {
+		return idPieza;
+	}
+
+	public void setIdPieza(String idPieza) {
+		this.idPieza = idPieza;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getLugarCreacion() {
+		return lugarCreacion;
+	}
+
+	public void setLugarCreacion(String lugarCreacion) {
+		this.lugarCreacion = lugarCreacion;
+	}
+
+	public boolean isDisponibilidad() {
+		return disponibilidad;
+	}
+
+	public void setDisponibilidad(boolean disponibilidad) {
+		this.disponibilidad = disponibilidad;
+	}
+
+	public int getCosto() {
+		return costo;
+	}
+
+	public void setCosto(int costo) {
+		this.costo = costo;
+	}
+
+	public ArrayList<Artista> getArtistas() {
+		return artistas;
+	}
+
+	public void setArtistas(ArrayList<Artista> artistas) {
+		this.artistas = artistas;
+	}
+
+	public Comprador getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Comprador propietario) {
+		this.propietario = propietario;
+	}
+
 }
