@@ -1,6 +1,7 @@
 package consola;
 import modelo.usuarios.Comprador; 
 import modelo.Galeria;
+import modelo.usuarios.Cajero;
 import modelo.inventario.Pieza;
 import modelo.ventas.Consignación; 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 
 public class ViewComprador extends View {
     private Comprador comprador;
+    private Cajero cajero;
     private int TotalComprasRealizadas;
     private int SaldoDisponible;
     private Scanner scanner;
@@ -39,7 +41,8 @@ public class ViewComprador extends View {
         // Aquí deberías implementar la lógica para comprar una pieza
         // Por ejemplo:
         Pieza pieza = galeria.buscarPiezaPorId(tipoPieza, nombrePieza); // Obtener la pieza por su nombre
-        if (pieza != null && SaldoDisponible >= pieza.getCosto()) {
+        
+        if (pieza != null && SaldoDisponible >= pieza.getCosto()&& pieza.getCosto()>= 0) {
             if (TotalComprasRealizadas >= comprador.getValorMaximoCompras()) {
                 System.out.println("¿Puede pagar la pieza con recursos adicionales? (S/N)");
                 String respuesta = scanner.nextLine();
@@ -48,8 +51,9 @@ public class ViewComprador extends View {
                     String formaPagoAdicional = scanner.nextLine();
                     System.out.println("Indique cuál es la fecha de compra:(dd/mm/YYYY)");
                     String fecha = scanner.nextLine();
-                    comprador.comprarPieza(galeria, tipoPieza, comprador, fecha, tipoPieza);
-                
+                    comprador.comprarPieza(galeria, tipoPieza, comprador, fecha, tipoPieza, cajero);
+                    comprador.agregarPiezaActual(pieza);
+                    comprador.agregarPiezaPasada(pieza);
                     // Aquí podrías hacer algo con la forma de pago adicional, como registrarla o procesarla
                     System.out.println("Compra realizada con recursos adicionales.");
                     System.out.println("Has comprado la pieza: " + nombrePieza);
@@ -61,11 +65,14 @@ public class ViewComprador extends View {
                 }
             } else {
             	
-                SaldoDisponible -= pieza.getCosto(); // Restar el costo de la pieza al saldo disponible
-                TotalComprasRealizadas += pieza.getCosto();
+                
                 System.out.println("Indique cuál es la fecha de compra:(dd/mm/YYYY)");
                 String fecha = scanner.nextLine();
-                comprador.comprarPieza(galeria, tipoPieza, comprador, fecha, tipoPieza);
+                comprador.comprarPieza(galeria, tipoPieza, comprador, fecha, tipoPieza, cajero);
+                comprador.agregarPiezaActual(pieza);
+                comprador.agregarPiezaPasada(pieza);
+                SaldoDisponible -= pieza.getCosto(); // Restar el costo de la pieza al saldo disponible
+                TotalComprasRealizadas += pieza.getCosto();
                 System.out.println("Has comprado la pieza: " + nombrePieza);
                 System.out.println("Saldo restante: " + SaldoDisponible);
             }

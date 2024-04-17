@@ -9,6 +9,7 @@ import modelo.subastas.Subasta;
 import modelo.ventas.MetodoPago;
 import modelo.ventas.Venta;
 import modelo.Galeria;
+import modelo.usuarios.Cajero;
 import java.util.Date;
 import consola.ViewRegistro;
 import consola.ViewComprador;
@@ -142,7 +143,13 @@ public class Comprador extends Usuario {
 	/*
 	 * Métodos
 	 */
+	public void agregarPiezaActual(Pieza pieza) {
+	    this.piezasActuales.add(pieza);
+	}
 
+	public void agregarPiezaPasada(Pieza pieza) {
+	    this.piezasPasadas.add(pieza);
+	}
 	
 
 	public Oferta hacerOferta(Galeria galeria,Comprador comprador,  String idPieza, int valorOferta, Subasta subasta, String tipoPieza) {
@@ -158,7 +165,7 @@ public class Comprador extends Usuario {
 	}
 	        // Comprar una pieza
 
-public void comprarPieza(Galeria galeria, String idPieza, Comprador comprador, String fecha, String tipoPieza) {
+public void comprarPieza(Galeria galeria, String idPieza, Comprador comprador, String fecha, String tipoPieza, Cajero cajero) {
     Pieza pieza = galeria.buscarPiezaPorId(tipoPieza, idPieza);
     if (pieza != null && pieza.isDisponibilidad()) {
         // Generar un ID único para la venta
@@ -168,7 +175,7 @@ public void comprarPieza(Galeria galeria, String idPieza, Comprador comprador, S
         Venta venta = new Venta(pieza, comprador, fecha, idVenta);
         
         // Guardar la venta en la galería
-        galeria.guardarVenta(idVenta, venta);
+        cajero.guardarVenta(idVenta, venta);
         
         System.out.println("Venta realizada con éxito. ID de venta: " + venta.getIdVenta());
     } else {
