@@ -46,4 +46,9 @@ public void seleccionarOpcion(String opcion) {
 		public void registrarVenta(String idVenta, Venta venta) {
 			cajero.registrarVenta(idVenta,  venta);
 		}
+		
+		public void metodoCarlos() {
+			// Hola
+		}
+		
 		}
