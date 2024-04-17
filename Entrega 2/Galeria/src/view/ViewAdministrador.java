@@ -43,9 +43,13 @@ public class ViewAdministrador extends View {
 		switch(opcion) {
 		case "1":
 			ingresarPiezaAInventario();
+		case "4":
+			registrarEmpleado();
+			break;
 		case "6":
 			registrarEmpleado();
 			break;
+			
 		case "7":
 			
 		break;
@@ -179,9 +183,14 @@ public class ViewAdministrador extends View {
 	public void registrarEmpleado() {
 		administrador.registrarEmpleado();
 	}
-			
+	public void Revisarofertaspendientes() {
+		HashMap<String, Oferta> = 
+		
+	
+	}
 	
 }
+
 
 //	public void crearSubasta() {
 //		System.out.println("\n--> Seleccionar fecha");
