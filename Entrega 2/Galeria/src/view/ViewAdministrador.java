@@ -153,7 +153,7 @@ public class ViewAdministrador extends View {
 	public void ingresarTipoPieza(String tituloPieza, String ubicacion, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, String nombreColectivo, boolean perteneceAColectivo) {
 		switch(tipoPieza) {
 		case "Escultura":
-			System.out.println("\nDimensiones Centímetros):");
+			System.out.println("\nDimensiones (Centímetros):");
 			int alto = getInputInt("Alto: ");
 			int largo = getInputInt("Largo: ");
 			int ancho = getInputInt("Ancho: ");
