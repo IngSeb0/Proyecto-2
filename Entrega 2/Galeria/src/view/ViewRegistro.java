@@ -1,43 +1,61 @@
-package consola;
+package view;
 
-import modelo.Galeria;
-import modelo.usuarios.Administrador;
-import modelo.usuarios.Empleado;
+import model.Galeria;
+import model.usuarios.Administrador;
+import model.usuarios.Empleado;
 
-public class ViewRegistro extends View {
+	public class ViewRegistro extends View {
 	
-private Galeria galeria;
+	private Galeria galeria;
+	
+	/*
+	 * Constructor
+	 */
 	
 	public ViewRegistro(Galeria galeria) {
+
 		this.galeria = galeria;
 	}
 	
-	@Override
-	public void mostrarMenu() {
-		
-		
-		if (galeria.getAdministrador() == null) {
-			 System.out.println("===========================================");
-			 System.out.println("Configuración Inicial de la Galería");
-	         System.out.println("===========================================\n");
-	         System.out.println("No hay ningún administrador configurado en el sistema.\n");
-	         System.out.println("Como primer paso, debes crear una cuenta de administrador.");
-	         System.out.println("Esta cuenta tendrá acceso completo al sistema para gestionar \nusuarios, inventario y subastas.\n");
-	         registrarNuevoUsuario("Administrador");
-		} else {
-			System.out.println("\n\n===========================================");
-			 System.out.println("Registrarse");
-	         System.out.println("===========================================");
-	         registrarNuevoUsuario("Comprador");
+	/*
+	 * Menús
+	 */
+	
+	public void mostrarMenuUsuario(String tipoUsuario) {
+		if (tipoUsuario.equals("Administrador")) {
+			mostrarMenuAdministrador();
+		} else if (tipoUsuario.equals("Empleado")) {
+			mostrarMenuEmpleado();
 		}
-			
 	}
 	
 
+	public void mostrarMenuAdministrador() {
+		 System.out.println("\n===========================================");
+		 System.out.println("Configuración inicial de la Galería");
+         System.out.println("===========================================\n");
+         System.out.println("No hay ningún administrador configurado en el sistema.\n");
+         System.out.println("Como primer paso, debes crear una cuenta de administrador.");
+         System.out.println("Esta cuenta tendrá acceso completo al sistema para gestionar \nusuarios, inventario y subastas.\n");
+         registrarNuevoUsuario("Administrador");
+	}
+	
+	public void mostrarMenuEmpleado() {
+		 System.out.println("\n===========================================");
+		 System.out.println("Registrar empleado");
+         System.out.println("===========================================\n");
+         System.out.println("Por favor, ingresa los datos del empleado que será registrado en el sistema.");
+         registrarNuevoUsuario("Empleado");
+	}
+
+
+	/*
+	 * Registrar un usuario
+	 * 
+	 */
+	
 	public void registrarNuevoUsuario(String tipoUsuario) {
 		
-		String login = validarLogin();
-		String password = validarPassword();
 		String nombre = capitalize(getInput("\nNombre: "));
 		String apellido = capitalize(getInput("\nApellido: "));
 		String cedula = capitalize(getInput("\nCédula: "));
@@ -45,31 +63,36 @@ private Galeria galeria;
 		switch(tipoUsuario) {
 		
 		case "Administrador":
+			String login = validarLogin();
+			String password = validarPassword();
 			Administrador administrador = new Administrador(nombre, apellido, cedula, login, password, tipoUsuario);
-			galeria.agregarUsuario(login, administrador);
-			administrador.setGaleria(galeria);
-			System.out.println("\nUsuario creado con éxito");
+			galeria.setAdministrador(administrador);
+			System.out.println("\nUsuario creado con éxito.");
+			ViewAdministrador viewAdministrador = new ViewAdministrador(administrador);
+			viewAdministrador.mostrarMenu();
 			break;
 			
 		case "Empleado":
+			login = galeria.generarLogin(nombre, apellido);
+			password = galeria.generarPassword();
 			Empleado empleado = new Empleado(nombre, apellido, cedula, login, password, tipoUsuario);
-			galeria.agregarUsuario(login, empleado);
-			galeria.agregarEmpleado(empleado);
-			System.out.println("\nUsuario creado con éxito.");
+			galeria.addEmpleado(empleado);
+			System.out.println("Credenciales del empleado; ");
+			System.out.println("\nlogin: " + login);
+			System.out.println("\npassword: " + password);
 			break;
-		case "Cajero":
-			break;
-			//viewCajero
+	
 		case "Comprador":
 			break;
-			//viewComprador
-			
 		}
+		
+		;
 	}
 	
+		
 	public String validarLogin() {
 		while (true) {
-			String login = getInput("\nNombre de usuario: ");
+			String login = getInput("\nNombre de usuario: ").trim();
 			
 	        try {
 	        	if (login.equals("")) {
@@ -87,11 +110,8 @@ private Galeria galeria;
 	
 	
 	public String validarPassword() {
-
 		while (true) {
-			
 			String password = getInput("\nContraseña: \nDebe tener al menos una mayúscula, un número y un símbolo especial [!@#$%^&()*]").trim();
-			
 	        try {
 	        	String mayusculaRegex = ".*[A-Z].*";
 	            String simboloRegex = ".*[!@#$%^&*()].*";
