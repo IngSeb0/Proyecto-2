@@ -15,7 +15,7 @@ public class Artista implements Serializable{
 
 	private boolean isColectivo;
 	
-	private ArrayList<Artista> colectivo;
+	private ArrayList<Artista> colectivo = new ArrayList<Artista>();
 
 	/* 
 	 * Constructor
