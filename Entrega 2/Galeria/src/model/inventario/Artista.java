@@ -1,8 +1,9 @@
 package model.inventario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Artista {
+public class Artista implements Serializable{
 
 	/* 
 	 * Atributos

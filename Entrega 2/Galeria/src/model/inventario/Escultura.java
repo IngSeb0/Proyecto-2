@@ -1,6 +1,8 @@
 package model.inventario;
 
-public class Escultura extends Pieza {
+import java.io.Serializable;
+
+public class Escultura extends Pieza implements Serializable {
 
 	/*Atributos
 	 * 

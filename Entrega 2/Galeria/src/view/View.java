@@ -1,5 +1,6 @@
 package view;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,9 +8,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.inventario.Pieza;
-import model.usuarios.Usuario;
 
-public abstract class View {
+public abstract class View implements Serializable{
 
 	protected Scanner scanner; 
 	

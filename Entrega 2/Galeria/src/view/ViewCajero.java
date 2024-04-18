@@ -1,15 +1,7 @@
 package view;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
-import model.Galeria;
-import model.ventas.Oferta;
-import model.ventas.Subasta;
-import model.ventas.Venta;
-import model.usuarios.Administrador;
 import model.usuarios.Cajero;
-import model.usuarios.Empleado;
+import model.ventas.Oferta;
 
 public class ViewCajero extends View {
 	

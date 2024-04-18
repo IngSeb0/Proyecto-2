@@ -1,5 +1,6 @@
 package model.ventas;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -7,7 +8,7 @@ import java.util.UUID;
 import model.inventario.Pieza;
 import model.usuarios.Comprador;
 
-public class Oferta {
+public class Oferta implements Serializable{
 
 	/*
 	 * Atributos

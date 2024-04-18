@@ -1,8 +1,7 @@
 package model.ventas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import model.inventario.Pieza;
@@ -10,7 +9,7 @@ import model.usuarios.Administrador;
 import model.usuarios.Comprador;
 import model.usuarios.Empleado;
 
-public class Subasta {
+public class Subasta implements Serializable {
 	
 	private String fecha;
 	

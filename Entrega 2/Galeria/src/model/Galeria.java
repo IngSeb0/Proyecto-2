@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -19,7 +20,7 @@ import view.ViewLogin;
 import view.ViewRegistro;
 
 
-public class Galeria {
+public class Galeria implements Serializable{
 	
 	/*
 	 * Usuarios 
@@ -88,13 +89,15 @@ public class Galeria {
 	
 		
 		if (centralPersistencia.getGaleria() != null) {
-			//cargar todo
+			
+			viewLogin.mostrarMenu();
 		} else {
 			piezasInventario.put("Escultura", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Pintura", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Impresión", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Fotografía", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Vídeos", (new HashMap<String, Pieza>()));
+//			centralPersistencia.guardarGaleria(this, "fichero.txt");
 			ViewLogin viewLogin= new ViewLogin(this);
 			setViewLogin(viewLogin);
 			ViewRegistro viewRegistro = new ViewRegistro(this);
@@ -316,15 +319,3 @@ public class Galeria {
 		return password;
 	}
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-
-

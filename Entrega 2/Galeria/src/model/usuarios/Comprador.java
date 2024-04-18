@@ -50,6 +50,7 @@ public class Comprador extends Usuario {
 	
 	public Comprador(String nombre, String apellido,  String cedula ,String login, String password, String tipoUsuario) {
 		super(nombre, apellido, cedula, login, password, tipoUsuario);
+		this.valorMaximoCompras = 10000;
 	}
 
 	/*

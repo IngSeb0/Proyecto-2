@@ -1,11 +1,12 @@
 package model.ventas;
-import model.inventario.Pieza;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import model.inventario.Pieza;
 import model.usuarios.Comprador;
 
-public class Venta {
+public class Venta implements Serializable{
     
     private String idVenta;
     private Pieza pieza;

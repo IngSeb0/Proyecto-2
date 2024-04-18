@@ -1,10 +1,11 @@
 package model.inventario;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import model.ventas.Consignacion;
 import model.usuarios.Comprador;
+import model.ventas.Consignacion;
 
-public abstract class Pieza {
+public abstract class Pieza implements Serializable {
 
     protected String idPieza;
     

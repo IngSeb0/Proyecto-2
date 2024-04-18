@@ -1,15 +1,16 @@
 package view;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Scanner;
 
-import model.Galeria;
-import model.ventas.Subasta;
-import model.ventas.Oferta;
 import model.usuarios.Administrador;
+import model.usuarios.Cajero;
+import model.usuarios.Comprador;
 import model.usuarios.Empleado;
+import model.usuarios.Usuario;
+import model.ventas.Oferta;
+import model.ventas.Subasta;
 
 public class ViewAdministrador extends View {
 	
@@ -30,11 +31,11 @@ public class ViewAdministrador extends View {
         System.out.println("1. Ingresar pieza a inventario"); //DONE
         System.out.println("2. Configurar subasta"); //DONE
         System.out.println("3. Iniciar subasta"); //DONE
-        System.out.println("4. Verificar comprador"); 
+        System.out.println("4. Verificar comprador"); //DONE
         System.out.println("5. Revisar ofertas pendientes"); // DONE
         System.out.println("6. Revisar consignaciones pendientes");
         System.out.println("7. Registrar empleado"); //DONE
-        System.out.println("8. Configurar cajero");
+        System.out.println("8. Configurar cajero"); //DONE
         System.out.println("\n0. Cerrar sesión");
       
         String opcion = getInput("\nSelecciona una opción: ").trim();
@@ -53,12 +54,15 @@ public class ViewAdministrador extends View {
 				iniciarSubasta();
 				break;
 			case "4":
-//				verificarComprador();
+				verificarComprador();
 			case "5":
 				revisarOfertasPendientes();
 				break;
 			case "7":
 				registrarEmpleado();
+				break;
+			case "8":
+				configurarCajero();
 				break;
 			}
 			mostrarMenu();
@@ -180,13 +184,37 @@ public class ViewAdministrador extends View {
 			String idPieza = administrador.ingresarEscultura(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad);
 			administrador.agregarPiezaAArtista(idPieza, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
 		case "Pintura":
-			
-			
+			int largoP = getInputInt("\nLargo(centimetros): ");
+			int anchoP = getInputInt("\nAncho(centimetros): ");
+			String idPintura= administrador.ingresarPintura(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, largoP, anchoP);
+			administrador.agregarPiezaAArtista(idPintura, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
 			break;
-		
-		case "":
 
-		break;
+		case "Impresión":
+			String tipohoja= String.valueOf(getInput("\nTipo de hoja"));
+			int largoI = getInputInt("\nLargo: ");
+			int anchoI = getInputInt("\nAncho: ");
+			String idImpresion=administrador.ingresarImpresion(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, tipohoja, largoI, anchoI);
+			administrador.agregarPiezaAArtista(idImpresion, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
+
+		case "Fotografía":
+			String tipoFotografia= String.valueOf(getInput("\nTipo de fotografia"));
+			int altoF = getInputInt("\nLargo: ");
+			int anchoF = getInputInt("\nAncho: ");
+			String resolucionImagen=String.valueOf(getInput("\nResolucion imagen(Píxeles por pulgada)"));
+			String idFotografía= administrador.ingresarFotografia(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, altoF, anchoF, tipoFotografia, resolucionImagen);
+			administrador.agregarPiezaAArtista(idFotografía, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
+			
+		case "Vídeos":
+			int duracion =getInputInt("\nDuración(minutos): ");
+			int pesoV =getInputInt("\nCuanto pesa el video(MB): ");
+			boolean mayoresDeEdad = getInputY_N("\n¿El video es para mayores de 18?");
+			String resolucionVideo=String.valueOf(getInput("\nResolucion imagen(Píxeles por pulgada)"));
+			String idVideo= administrador.ingresarVideo(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, duracion, mayoresDeEdad, resolucionVideo, pesoV);
+			administrador.agregarPiezaAArtista(idVideo, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
 		}
 		System.out.println("\nPieza ingresada con éxito:" + nombreArtista + ". (" + anioCreacion + "). " + tituloPieza + " [" + tipoPieza + "] .");
 		mostrarMenu();
@@ -195,7 +223,8 @@ public class ViewAdministrador extends View {
 	public void registrarEmpleado() {
 		administrador.registrarEmpleado();
 	}
-	 public void revisarOfertasPendientes() {
+	 
+	public void revisarOfertasPendientes() {
 	        HashMap<String, Oferta> ofertas = administrador.getOfertasARevisar();
 	        System.out.println("\nOfertas Pendientes:");
 	        for (Oferta oferta : ofertas.values()) {
@@ -211,7 +240,6 @@ public class ViewAdministrador extends View {
 	        }
 	    }
 
-
 	public void iniciarSubasta() {
 		HashMap<String, Subasta> subastas = administrador.getGaleria().getSubastas();
 		String fecha = getInputFecha("Ingresa la fecha de la subasta a inciar (DD-MM-YYYY): ");
@@ -219,6 +247,9 @@ public class ViewAdministrador extends View {
 			Subasta subasta = subastas.get(fecha);
 			subasta.iniciarSubasta();
 			System.out.println("Se ha iniciado la subasta :)");
+		} else {
+			System.out.println("No se encontró una subasta para la fecha.");
+			mostrarMenu();
 		}
 	}
 	
@@ -257,14 +288,72 @@ public class ViewAdministrador extends View {
                 } else {
                     System.out.println("No se encontró el empleado con la cédula proporcionada. Intente nuevamente.");
                 }
-            } catch (Exception e) {  // Catch a broader exception if there might be other issues
+            } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }
     }
 	
+	public void verificarComprador() {
+		HashMap<String, Subasta> subastas = administrador.getGaleria().getSubastas();
+		String fecha = getInputFecha("Ingresa la fecha de la subasta a inciar (DD-MM-YYYY): ");
+		if (subastas.containsKey(fecha)) {
+			Subasta subasta = subastas.get(fecha);
+			Comprador comprador = (Comprador) seleccionarComprador(); 
+			if (comprador != null){
+				administrador.VerificarComprador(subasta, comprador);
+			} else {
+				System.out.println("Todavía no hay compradores registrados.");
+				mostrarMenu();
+			}
+		} else {
+			System.out.println("No se encontró una subasta para la fecha.");
+			mostrarMenu();
+	}
+		
+	}
+	
+	public Usuario seleccionarComprador() {
+        Collection<Usuario> usuarios = administrador.getGaleria().getUsuarios().values();
+        if (usuarios.isEmpty()) {
+            System.out.println("No hay compradores. Espera a que se registren.\n");
+            return null;
+        } else {
+            System.out.println("Compradores disponibles: \n");
+            for (Usuario u : usuarios) {
+            	if (u instanceof Comprador) {
+                System.out.println(u.getNombre() + " " + u.getApellido() + ", CC: " + u.getCedula());
+            	}
+            }
+        }
+        System.out.println("\nPara escoger el comprador, ingresa su número de cédula.");
+        while (true) {
+        	String numeroCedula = getInput("\nNúmero de cédula: ").trim();
+            Usuario usuario = null;
+        	try {
+                for (Usuario u : usuarios) {
+                	if (u.getCedula().equals(numeroCedula)) {
+                	usuario = u;
+                	return usuario;
+                	} else {
+                		throw new IllegalArgumentException("\"No se encontró un comprador con la cédula proporcionada. Intente nuevamente.");
+                	}
+                }
+            } catch (Exception e) { 
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+	
+	public void configurarCajero() {
+		System.out.println("\nSelecciona un empleado para que sea el cajero");
+		Empleado empleado = seleccionarEmpleado();
+		administrador.getGaleria().setCajero((Cajero) empleado);
+	}
+
 }
 	
+
 
 
 
