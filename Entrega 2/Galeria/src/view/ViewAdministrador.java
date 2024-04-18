@@ -9,13 +9,11 @@ import model.Galeria;
 import model.ventas.Subasta;
 import model.ventas.Oferta;
 import model.usuarios.Administrador;
-import model.usuarios.Cajero;
 import model.usuarios.Empleado;
 
 public class ViewAdministrador extends View {
 	
 	private Administrador administrador;
-	private Galeria galeria;
 	
 	public ViewAdministrador(Administrador administrador) {
 		administrador.setViewAdministrador(this);
@@ -29,37 +27,47 @@ public class ViewAdministrador extends View {
         System.out.println("===========================================\n");
         
         //menú
-        System.out.println("1. Ingresar pieza a inventario");
-        System.out.println("2. Configurar subasta");
-        System.out.println("3. Iniciar subasta");
-        System.out.println("4. Revisar ofertas pendientes");
-        System.out.println("5. Revisar consignaciones pendientes");
-        System.out.println("6. Registrar empleado");
-        System.out.println("7. Configurar cajero");
-        System.out.println("\n0. Salir");
+        System.out.println("1. Ingresar pieza a inventario"); //DONE
+        System.out.println("2. Configurar subasta"); //DONE
+        System.out.println("3. Iniciar subasta"); //DONE
+        System.out.println("4. Verificar comprador"); 
+        System.out.println("5. Revisar ofertas pendientes"); // DONE
+        System.out.println("6. Revisar consignaciones pendientes");
+        System.out.println("7. Registrar empleado"); //DONE
+        System.out.println("8. Configurar cajero");
+        System.out.println("\n0. Cerrar sesión");
       
-        String opcion = getInput("\nSelecciona una opción: ");
+        String opcion = getInput("\nSelecciona una opción: ").trim();
         seleccionarOpcion(opcion);
 	}
 	
 	public void seleccionarOpcion(String opcion) {
-		
-		switch(opcion) {
-		case "1":
-			ingresarPiezaAInventario();
-		case "4":
-			registrarEmpleado();
-			break;
-		case "6":
-			registrarEmpleado();
-			break;
-			
-		case "7":
-			
-		break;
+		if (!(opcion.equals("0"))) {
+			switch(opcion) {
+			case "1":
+				ingresarPiezaAInventario();
+				break;
+			case "2":
+				crearSubasta();
+			case "3":
+				iniciarSubasta();
+				break;
+			case "4":
+//				verificarComprador();
+			case "5":
+				revisarOfertasPendientes();
+				break;
+			case "7":
+				registrarEmpleado();
+				break;
+			}
+			mostrarMenu();
+		} else {
+			administrador.getGaleria().getViewLogin().mostrarMenu();	
 		}
-		mostrarMenu();
 	}
+		
+	
 	
 	/*
 	 * Métodos
@@ -187,69 +195,76 @@ public class ViewAdministrador extends View {
 	public void registrarEmpleado() {
 		administrador.registrarEmpleado();
 	}
-	 public void RevisarOfertasPendientes() {
+	 public void revisarOfertasPendientes() {
 	        HashMap<String, Oferta> ofertas = administrador.getOfertasARevisar();
-	        Scanner scanner = new Scanner(System.in);
-
-	        System.out.println("Ofertas Pendientes:");
+	        System.out.println("\nOfertas Pendientes:");
 	        for (Oferta oferta : ofertas.values()) {
-	            System.out.println("ID: " + oferta.getIdOferta() + ", Monto: " + oferta.getValorOferta() + ", Fecha: " + oferta.getFecha());
+	            System.out.println("ID: " + oferta.getIdOferta() + ". Monto: " + oferta.getValorOferta() + ". Fecha: " + oferta.getFecha());
 	            // Imprimir otras propiedades de la oferta según sea necesario
-	            System.out.print("¿Desea aceptar esta oferta? (S/N): ");
-	            String respuesta = scanner.nextLine();
-	            if (respuesta.equalsIgnoreCase("S")) {
-	            	galeria.getCajero().getOfertasAceptadas().add(oferta);
+	            boolean aceptar = getInputY_N("¿Desea aceptar esta oferta?");
+	            if (aceptar) {
+	            	administrador.aceptarOferta(oferta);
 	                System.out.println("Oferta aceptada correctamente.");
 	            } else {
 	                System.out.println("Oferta rechazada.");
 	            }
 	        }
 	    }
+
+
+	public void iniciarSubasta() {
+		HashMap<String, Subasta> subastas = administrador.getGaleria().getSubastas();
+		String fecha = getInputFecha("Ingresa la fecha de la subasta a inciar (DD-MM-YYYY): ");
+		if (subastas.containsKey(fecha)) {
+			Subasta subasta = subastas.get(fecha);
+			subasta.iniciarSubasta();
+			System.out.println("Se ha iniciado la subasta :)");
+		}
+	}
+	
+	public void crearSubasta() {
+		System.out.println("\n--> Seleccionar fecha");
+		String fecha = getInputFecha("Ingresa la fecha en la que se realizará la subasta (DD-MM-YYYY): ");
+		System.out.println("\n--> Seleccionar operador");
+		Empleado empleado = seleccionarEmpleado();
+		if (empleado != null) {
+		    administrador.getGaleria().crearSubasta(fecha, empleado);
+		    System.out.println("Se créo una subasta para " + fecha + ". Operador:" + empleado.getNombre() + " " + empleado.getApellido());
+		} else {
+		    System.out.println("Error: No se pudo asignar un operador para la subasta.");
+			mostrarMenu();
+		}
+	}
+	
+	public Empleado seleccionarEmpleado() {
+        ArrayList<Empleado> empleados = administrador.getGaleria().getEmpleadosDisponibles();
+        if (empleados.isEmpty()) {
+            System.out.println("No hay ningún empleado registrado. Primero, registra un empleado.\n");
+            return null;
+        } else {
+            System.out.println("Empleados disponibles: \n");
+            for (Empleado e : empleados) {
+                System.out.println(e.getNombre() + " " + e.getApellido() + ", CC: " + e.getCedula());
+            }
+        }
+        System.out.println("\nPara asignar el empleado, ingresa su número de cédula.");
+        while (true) {
+        	String numeroCedula = getInput("\nNúmero de cédula: ");
+            try {
+                Empleado empleado = administrador.getGaleria().getEmpleado(numeroCedula);
+                if (empleado != null) {
+                    return empleado;
+                } else {
+                    System.out.println("No se encontró el empleado con la cédula proporcionada. Intente nuevamente.");
+                }
+            } catch (Exception e) {  // Catch a broader exception if there might be other issues
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
 	
 }
-
-
-//	public void crearSubasta() {
-//		System.out.println("\n--> Seleccionar fecha");
-//		String fecha = getInputFecha("Ingresa la fecha en la que se realizará la subasta (DD-MM-YYYY): ");
-//		
-//		System.out.println("\n--> Seleccionar operador");
-//		ArrayList<Empleado> empleados = galeria.getEmpleados();
-//		if (empleados.isEmpty()) {
-//			System.out.println("No hay ningún empleado registrado. Primero, registra un empleado.\n");
-//			mostrarMenu();
-//		} else {
-//			System.out.println("Empleados disponibles: \n");
-//			for (Empleado e : empleados) {
-//				if (!(e instanceof Cajero)) {
-//					System.out.println(e.getNombre() + " " + e.getApellido() + ", " + e.getCedula());
-//				}
-//		}
-//		System.out.println("\nPara asignar el operador de la subasta, ingresa el número de cédula del empleado.");
-//		Empleado operador = null;
-//		// Buscar empleado
-//		while (true) {
-//			String numeroCedula = getInput("\nNúmero de cédula: ");
-//	        try { 
-//	        	operador = galeria.getEmpleado(numeroCedula);
-//	        	if (operador != null) {
-//	        		break;
-//	        	} else {
-//	        		throw new IllegalArgumentException("No se encontró el empleado.");
-//	        	}
-//	        	
-//	        } catch (IllegalArgumentException e) {
-//	        	System.out.println(e.getMessage());	
-//	        }	
-//		}
-//		if (operador != null) {
-//		    Subasta subasta = galeria.crearSubasta(fecha, operador);
-//		    System.out.println("Se créo una subasta para " + subasta.getFecha() + ". Operador:" + subasta.getOperador().getNombre());
-//		} else {
-//		    System.out.println("Error: No se pudo asignar un operador para la subasta.");
-//		}
-//		}
-//	}
+	
 
 
 

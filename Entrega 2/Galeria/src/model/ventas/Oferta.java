@@ -27,11 +27,13 @@ public class Oferta {
 
 	private Subasta subasta;
 	
+	private String metodoPago;
+	
 	/*
 	 * Constructor
 	 */
 
-	public Oferta(Pieza pieza, Comprador comprador, int valorOferta, String peticion) {
+	public Oferta(Pieza pieza, Comprador comprador, int valorOferta, String peticion, String metodoPago) {
 		
 		LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -43,6 +45,7 @@ public class Oferta {
 		this.valorOferta = valorOferta;
 		this.comprador = comprador;
 		this.peticion = peticion;
+		this.metodoPago = metodoPago;
 	}
 
 
@@ -85,6 +88,11 @@ public class Oferta {
 
 	public String getIdOferta() {
 		return idOferta;
+	}
+
+
+	public String getMetodoPago() {
+		return metodoPago;
 	}
 	
 	

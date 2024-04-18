@@ -1,6 +1,10 @@
 package model.usuarios;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import model.inventario.Pieza;
+import model.ventas.Oferta;
 import model.ventas.Subasta;
 import view.ViewEmpleado;
 
@@ -55,12 +59,26 @@ public class Empleado extends Usuario {
 
 	public void setViewEmpleado(ViewEmpleado viewEmpleado) {
 		this.viewEmpleado = viewEmpleado;
-	}	
-	
+	}
 	
 	/*
 	 * Métodos
 	 */
+
+	public void registrarOfertasSubasta() {
+		Map<Pieza, Oferta> ofertasMasAltas = new HashMap<>();
+		for (Oferta oferta : subastaEnCurso.getOfertas()) {
+		Pieza pieza = oferta.getPieza();
+			if (!(ofertasMasAltas.containsKey(pieza)) || ofertasMasAltas.get(pieza).getValorOferta() < oferta.getValorOferta()) {
+				ofertasMasAltas.put(pieza, oferta);
+			}
+		}
+      
+        for (Oferta ofertaGanadora : ofertasMasAltas.values()) {
+            galeria.getAdminstrador().getOfertasARevisar().put(ofertaGanadora.getIdOferta(), ofertaGanadora);
+        }
+	}
+		
 	
 	
 	

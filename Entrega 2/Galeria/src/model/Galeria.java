@@ -11,10 +11,11 @@ import model.usuarios.Administrador;
 import model.usuarios.Cajero;
 import model.usuarios.Empleado;
 import model.usuarios.Usuario;
+import model.ventas.Consignacion;
 import model.ventas.Subasta;
 import model.ventas.Venta;
-import model.ventas.Consignacion;
 import view.ViewEmpleado;
+import view.ViewLogin;
 import view.ViewRegistro;
 
 
@@ -31,6 +32,8 @@ public class Galeria {
 	private Cajero cajero;
 	
 	private HashMap<String, Empleado> empleados = new HashMap<String, Empleado>();
+	
+	private ArrayList<Empleado> empleadosDisponibles = new ArrayList<Empleado>();
 	
 	/*
 	 * Inventario
@@ -70,6 +73,8 @@ public class Galeria {
 	
 	private ViewRegistro viewRegistro;
 	
+	private ViewLogin viewLogin;
+	
 	/*
 	 * Constructor
 	 */
@@ -90,13 +95,8 @@ public class Galeria {
 			piezasInventario.put("Impresión", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Fotografía", (new HashMap<String, Pieza>()));
 			piezasInventario.put("Vídeos", (new HashMap<String, Pieza>()));
-//			subastas = new HashMap<String, Subasta>();
-//			ventas = new HashMap<String, Venta>();
-//			consignaciones = new ArrayList<Consignacion>();
-//			piezasExhibidas = new ArrayList<Pieza>();
-//			piezasBodega = new ArrayList<Pieza>();
-//			piezasPasadas = new ArrayList<Pieza>();
-//			artistas = new HashMap<String, Artista>();
+			ViewLogin viewLogin= new ViewLogin(this);
+			setViewLogin(viewLogin);
 			ViewRegistro viewRegistro = new ViewRegistro(this);
 			setViewRegistro(viewRegistro);
 			viewRegistro.mostrarMenuUsuario("Administrador");
@@ -153,6 +153,7 @@ public class Galeria {
 		empleado.setViewEmpleado(viewEmpleado);
 		empleado.setGaleria(this);
 		this.empleados.put(empleado.getLogin(), empleado);
+		empleadosDisponibles.add(empleado);
 		addUsuario(empleado);
 //		centralPersistencia.guardarUsuarios();
 	}
@@ -160,6 +161,11 @@ public class Galeria {
 	public Empleado getEmpleado(String numeroCedula) {
 		Empleado empleado = empleados.get(numeroCedula);
 		return empleado;
+	}
+
+	
+	public ArrayList<Empleado> getEmpleadosDisponibles() {
+		return empleadosDisponibles;
 	}
 
 	// Piezas inventario
@@ -228,10 +234,6 @@ public class Galeria {
 		return subastas;
 	}
 
-	public void setSubastas(HashMap<String, Subasta> subastas) {
-		this.subastas = subastas;
-	}
-
 	public HashMap<String, Venta> getVentas() {
 		return ventas;
 	}
@@ -264,12 +266,26 @@ public class Galeria {
 		this.viewRegistro = viewRegistro;
 	}
 	
+	public ViewLogin getViewLogin() {
+		return viewLogin;
+	}
+
+	public void setViewLogin(ViewLogin viewLogin) {
+		this.viewLogin = viewLogin;
+	}
+	
 	/*
 	 * Métodos
 	 */
+	
+	public void crearSubasta(String fecha, Empleado empleado) {
+		Subasta subasta = new Subasta(fecha, empleado, this.getAdminstrador());
+		subastas.put(fecha, subasta);
+	}
+	
 	public void guardarVenta(String idVenta, Venta venta) {
 		ventas.put(idVenta , venta);
-		}
+	}
 	
 	public String generarLogin(String nombre, String apellido) {
 		String login = nombre.substring(0,1).toLowerCase() + "." + apellido.toLowerCase();

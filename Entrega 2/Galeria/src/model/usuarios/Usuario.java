@@ -7,7 +7,7 @@ import model.Galeria;
 import model.inventario.Pieza;
 import view.ViewLogin;
 
-//TODO Serial warning serializable
+
 public abstract class Usuario implements Serializable {
 
 	/*

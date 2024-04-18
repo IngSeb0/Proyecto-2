@@ -127,6 +127,10 @@ public class Administrador extends Empleado {
 		ingresarPieza(escultura);
 		return idPieza;
 	}
+
+	public void aceptarOferta(Oferta oferta) {
+		getGaleria().getCajero().getOfertasAceptadas().add(oferta);
+	}
 }	
 	
 

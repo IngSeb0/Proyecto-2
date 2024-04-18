@@ -16,44 +16,31 @@ public class ViewEmpleado extends View {
         System.out.println("===========================================\n");
         
         if (empleado.getSubastaEnCurso() != null) {
-//        	System.out.println("\n----------------------------------------");
-//        	System.out.println("Subasta en curso\n");
-//        	System.out.println("Pieza actual: " + comprador.getPiezaSubastaEnCurso().getTituloPieza()+ "de" + comprador.getPiezaSubastaEnCurso().getArtistas().get(0));
-//        	System.out.println("[" + comprador.getPiezaSubastaEnCurso().getTipoPieza() + "]");
-//        	System.out.println("\nOferta actual: $" + String.valueOf(comprador.getPiezaSubastaEnCurso().getValorInicial()));
-//        	System.out.println("----------------------------------------\n");
+        	System.out.println("\n----------------------------------------");
+        	System.out.println("Subasta en curso\n");
+        	System.out.println("Pieza actual: " + empleado.getPiezaSubastaEnCurso().getTituloPieza()+ "de" + empleado.getPiezaSubastaEnCurso().getArtistas().get(0));
+        	System.out.println("[" + empleado.getPiezaSubastaEnCurso().getTipoPieza() + "]");
+        	System.out.println("\nOferta actual: $" + String.valueOf(empleado.getPiezaSubastaEnCurso().getValorInicial()));
+        	System.out.println("----------------------------------------\n");
         	
         }
-//        //En caso de subasta
-//        System.out.println("Valor máximo de compras: $" + String.valueOf(comprador.getValorMaximoCompras()));
-//        System.out.println("Total de compras realizadas: $" + String.valueOf(comprador.getTotalComprasRealizadas()));
-//        System.out.println("Saldo disponible: $" + String.valueOf(comprador.getSaldoDisponible()));
-        
-        //Menú
-        System.out.println("1. Comprar pieza");
-        System.out.println("0. Salir");
+        System.out.println("Disfruta tu tiempo libre. Por ahora no hay mucho que hacer...\n");
+        System.out.println("1. Iniciar subasta");
+        System.out.println("0. Cerrar sesión");
     }
     
     public void seleccionarOpcion(String opcion) {
-		switch(opcion) {
-		case "1":
+    	if (!opcion.equals("0")) {
+    		switch(opcion) {
+			case "1":
+			//iniciarsubasta
 			break;
-		case "2":
-			break;
-		case "3":
-			break;
-		case "4":
-			break;
-		case "5":
-			break;
-		case "6":
-			break;
-		}
-		mostrarMenu();
+			}
+    		mostrarMenu();
+    	} else {
+    		empleado.getGaleria().getViewLogin().mostrarMenu();
+    	}
 	}
-    
-    
-    
     
 }
 

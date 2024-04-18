@@ -11,19 +11,22 @@ import view.ViewCajero;
 
 public class Cajero extends Empleado {
 	
-	private Galeria galeria;
-	
-	private ArrayList<Oferta> OfertasAceptadas;
+	private ArrayList<Oferta> ofertasAceptadas;
 	
 	private ViewCajero viewCajero;
 	
-	
+	/*
+	 * Constructor
+	 */
 
 	public Cajero(String nombre, String apellido, String login, String password, String cedula, String tipoUsuario) {
 		super(nombre, apellido, cedula, login, password, tipoUsuario);
 		// TODO Auto-generated constructor stub
 	}
 
+	/*
+	 * Getters + Setters
+	 */
 	
 	public Galeria getGaleria() {
 		return galeria;
@@ -36,12 +39,12 @@ public class Cajero extends Empleado {
 
 
 	public ArrayList<Oferta> getOfertasAceptadas() {
-		return OfertasAceptadas;
+		return ofertasAceptadas;
 	}
 
 
 	public void setVentas(ArrayList<Oferta> ventas) {
-		this.OfertasAceptadas= ventas;
+		this.ofertasAceptadas= ventas;
 	}
 
 
@@ -54,17 +57,15 @@ public class Cajero extends Empleado {
 		this.viewCajero = viewCajero;
 	}
 
-	public void verOfertasAceptadas() {
-	    
-	    System.out.println("Ofertas Aceptadas:");
-	    for (Oferta oferta : OfertasAceptadas) {
-	        System.out.println("ID: " + oferta.getIdOferta() + ", Monto: " + oferta.getValorOferta() + ", Fecha: " + oferta.getFecha());
-	        // Ajusta las propiedades de la oferta según corresponda
-	    }
-	    
-	}
-	public void registrarVenta(String idVenta, Venta venta) {
-		galeria.guardarVenta(idVenta,  venta);
+	/*
+	 * Métodos
+	 */
+	
+	public void registrarVentas() {
+		for (Oferta o : ofertasAceptadas) {
+			Venta venta = new Venta(o);
+			galeria.guardarVenta(venta.getIdVenta(), venta);
+		}
 	}
 	
 	

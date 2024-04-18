@@ -36,6 +36,8 @@ public class Comprador extends Usuario {
 	
 	private ArrayList<Consignacion> consignaciones = new  ArrayList<Consignacion>();
 	
+	private ArrayList<Oferta> ofertasPendientes = new  ArrayList<Oferta>();
+	
 	/*
 	 * Views
 	 */
@@ -82,6 +84,10 @@ public class Comprador extends Usuario {
 		this.totalComprasRealizadas += valorCompra;
 	}
 	
+	public void setPiezaSubastaEnCurso(Pieza pieza) {
+		this.piezaSubastaEnCurso = pieza;
+	}
+	
 	public Pieza getPiezaSubastaEnCurso() {
 		return piezaSubastaEnCurso;
 	}
@@ -104,6 +110,8 @@ public class Comprador extends Usuario {
 	public void setSubastaEnCurso(Subasta subastaEnCurso) {
 		this.subastaEnCurso = subastaEnCurso;
 	}
+	
+	
 
 	public ViewComprador getViewComprador() {
 		return viewComprador;
@@ -112,26 +120,33 @@ public class Comprador extends Usuario {
 	public void setViewComprador(ViewComprador viewComprador) {
 		this.viewComprador = viewComprador;
 	}
+	
+	
+	public ArrayList<Oferta> getOfertasPendientes() {
+		return ofertasPendientes;
+	}
 
 	/*
 	 * Métodos
 	 */
-	
-	public void verPiezasDisponibles() {
-		return;
-	}
 
-	public void comprarPieza(String tipoPieza, String idPieza, int valorOferta, String peticion) {
+	public void comprarPieza(String tipoPieza, String idPieza, int valorOferta, String peticion, String metodoPago) {
 		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
-		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion);
+		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion, metodoPago);
 		if (peticion != null) {
 			galeria.getAdminstrador().getOfertasARevisar().put(oferta.getIdOferta(), oferta);
 		} else {
 			galeria.getCajero().getOfertasAceptadas().add(oferta);
 		}
-		
-		
-		
 	}
+	
+	public void hacerOfertaSubasta(int valorOferta, String metodoPago) {
+		Pieza pieza = getPiezaSubastaEnCurso();
+		String peticion = null;
+		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion, metodoPago);
+		getSubastaEnCurso().addOferta(oferta);
+		ofertasPendientes.add(oferta);
+	}
+	
 }
 

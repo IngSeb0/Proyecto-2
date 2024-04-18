@@ -28,6 +28,8 @@ public abstract class Pieza {
     
     protected int valorInicial;
     
+    protected int valorActualSubasta;
+    
     protected ArrayList<Artista> artistas = new ArrayList<Artista>();
     
     protected Comprador propietario;
@@ -141,6 +143,14 @@ public abstract class Pieza {
 
 	public String getUbicacion() {
 		return ubicacion;
+	}
+
+	public int getValorActualSubasta() {
+		return valorActualSubasta;
+	}
+	
+	public void setValorActualSubasta(int valorOferta) {
+		this.valorActualSubasta = valorOferta;
 	}
 
     
