@@ -64,8 +64,12 @@ public class ViewCajero extends View {
 			System.out.println("Hmmm... ¿Qué más piensas hacer?");
 			mostrarMenu();
 		}
-		
+
 	}
 		
 		
 }
+
+
+		}
+

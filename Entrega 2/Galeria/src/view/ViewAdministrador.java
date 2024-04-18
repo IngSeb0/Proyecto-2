@@ -179,14 +179,39 @@ public class ViewAdministrador extends View {
 			boolean requiereElectricidad = getInputY_N("\n¿La escultura requiere electricidad?");
 			String idPieza = administrador.ingresarEscultura(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad);
 			administrador.agregarPiezaAArtista(idPieza, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
 		case "Pintura":
-			
-			
+			int largoP = getInputInt("\nLargo(centimetros): ");
+			int anchoP = getInputInt("\nAncho(centimetros): ");
+			String idPintura= administrador.ingresarPintura(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, largoP, anchoP);
+			administrador.agregarPiezaAArtista(idPintura, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
 			break;
 		
-		case "":
-
-		break;
+		case "Impresión":
+			String tipohoja= String.valueOf(getInput("\nTipo de hoja"));
+			int largoI = getInputInt("\nLargo: ");
+			int anchoI = getInputInt("\nAncho: ");
+			String idImpresion=administrador.ingresarImpresion(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, tipohoja, largoI, anchoI);
+			administrador.agregarPiezaAArtista(idImpresion, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
+		
+		case "Fotografía":
+			String tipoFotografia= String.valueOf(getInput("\nTipo de fotografia"));
+			int altoF = getInputInt("\nLargo: ");
+			int anchoF = getInputInt("\nAncho: ");
+			String resolucionImagen=String.valueOf(getInput("\nResolucion imagen(Píxeles por pulgada)"));
+			String idFotografía= administrador.ingresarFotografia(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, altoF, anchoF, tipoFotografia, resolucionImagen);
+			administrador.agregarPiezaAArtista(idFotografía, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
+			
+		case "Vídeos":
+			int duracion =getInputInt("\nDuración(minutos): ");
+			int pesoV =getInputInt("\nCuanto pesa el video(MB): ");
+			boolean mayoresDeEdad = getInputY_N("\n¿El video es para mayores de 18?");
+			String resolucionVideo=String.valueOf(getInput("\nResolucion imagen(Píxeles por pulgada)"));
+			String idVideo= administrador.ingresarVideo(ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, duracion, mayoresDeEdad, resolucionVideo, pesoV);
+			administrador.agregarPiezaAArtista(idVideo, tipoPieza, nombreArtista, nombreColectivo, perteneceAColectivo);
+			break;
 		}
 		System.out.println("\nPieza ingresada con éxito:" + nombreArtista + ". (" + anioCreacion + "). " + tituloPieza + " [" + tipoPieza + "] .");
 		mostrarMenu();
