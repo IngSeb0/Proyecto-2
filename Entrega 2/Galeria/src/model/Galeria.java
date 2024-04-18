@@ -155,7 +155,7 @@ public class Galeria implements Serializable{
 		ViewEmpleado viewEmpleado = new ViewEmpleado(empleado);
 		empleado.setViewEmpleado(viewEmpleado);
 		empleado.setGaleria(this);
-		this.empleados.put(empleado.getLogin(), empleado);
+		this.empleados.put(empleado.getCedula(), empleado);
 		empleadosDisponibles.add(empleado);
 		addUsuario(empleado);
 //		centralPersistencia.guardarUsuarios();
