@@ -131,16 +131,6 @@ public class Comprador extends Usuario {
 	 * Métodos
 	 */
 
-	public void comprarPieza(String tipoPieza, String idPieza, int valorOferta, String peticion, String metodoPago) {
-		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
-		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion, metodoPago);
-		if (peticion != null) {
-			galeria.getAdminstrador().getOfertasARevisar().put(oferta.getIdOferta(), oferta);
-		} else {
-			galeria.getCajero().getOfertasAceptadas().add(oferta);
-		}
-	}
-	
 	public void hacerOfertaSubasta(int valorOferta, String metodoPago) {
 		Pieza pieza = getPiezaSubastaEnCurso();
 		String peticion = null;
@@ -149,5 +139,18 @@ public class Comprador extends Usuario {
 		ofertasPendientes.add(oferta);
 	}
 	
+	public void comprarPieza(String tipoPieza, String idPieza, int valorOferta, String peticion, String metodoPago) {
+		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
+		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion, metodoPago);
+		if (peticion != null) {
+			galeria.getAdminstrador().getOfertasARevisar().put(oferta.getIdOferta(), oferta);
+			oferta.getPieza().setPropietario(this);
+		} else {
+			galeria.getCajero().getOfertasAceptadas().add(oferta);
+			oferta.getPieza().setPropietario(this);
+		
+		
+		}
+	}
 }
 
