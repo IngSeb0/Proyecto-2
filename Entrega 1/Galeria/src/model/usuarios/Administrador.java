@@ -82,20 +82,12 @@ public class Administrador extends Empleado {
 	}
 	
 	public void ingresarPieza(Pieza pieza) {
-		String tipoPieza = pieza.getTipoPieza();
-		String idPieza = pieza.getIdPieza();
-		HashMap<String, Pieza> piezas = galeria.getPiezasInventario().get(tipoPieza);
-		piezas.put(idPieza, pieza);
-		galeria.getPiezasPasadas().add(pieza);
-		if (pieza.getCostoFijo() > 0) {
-			galeria.getPiezasDisponibles().add(pieza);
-		}
-		if(pieza.getUbicacion().equals("Bodega")) {
-			galeria.getPiezasBodega().add(pieza);
-		} else {
+		
 			galeria.getPiezasExhibidas().add(pieza);
-		}
+		
 	}
+	
+	
 	
 	public void agregarPiezaAArtista(String idPieza, String tipoPieza, String nombreArtista, String nombreColectivo, boolean perteneceAColectivo) {
 		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);

@@ -318,4 +318,19 @@ public class Galeria implements Serializable{
         String password = "" + first + second + third + fourth + fifth;
 		return password;
 	}
+	public void ingresarPieza(Pieza pieza) {
+		String tipoPieza = pieza.getTipoPieza();
+		String idPieza = pieza.getIdPieza();
+		HashMap<String, Pieza> piezas = galeria.getPiezasInventario().get(tipoPieza);
+		piezas.put(idPieza, pieza);
+		galeria.getPiezasPasadas().add(pieza);
+		if (pieza.getCostoFijo() > 0) {
+			galeria.getPiezasDisponibles().add(pieza);
+		}
+		if(pieza.getUbicacion().equals("Bodega")) {
+			galeria.getPiezasBodega().add(pieza);
+		} else {
+			galeria.getPiezasExhibidas().add(pieza);
+		}
+	}
 }

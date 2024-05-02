@@ -17,7 +17,7 @@ public class Impresion extends Pieza implements Serializable {
 
 	public String getTipoHoja() {
 		return tipoHoja;
-	}
+	}dsfsadas
 
 	public int getLargo() {
 		return largo;
