@@ -321,16 +321,16 @@ public class Galeria implements Serializable{
 	public void ingresarPieza(Pieza pieza) {
 		String tipoPieza = pieza.getTipoPieza();
 		String idPieza = pieza.getIdPieza();
-		HashMap<String, Pieza> piezas = galeria.getPiezasInventario().get(tipoPieza);
+		HashMap<String, Pieza> piezas = this.getPiezasInventario().get(tipoPieza);
 		piezas.put(idPieza, pieza);
-		galeria.getPiezasPasadas().add(pieza);
+		this.getPiezasPasadas().add(pieza);
 		if (pieza.getCostoFijo() > 0) {
-			galeria.getPiezasDisponibles().add(pieza);
+			this.getPiezasDisponibles().add(pieza);
 		}
 		if(pieza.getUbicacion().equals("Bodega")) {
-			galeria.getPiezasBodega().add(pieza);
+			this.getPiezasBodega().add(pieza);
 		} else {
-			galeria.getPiezasExhibidas().add(pieza);
+			this.getPiezasExhibidas().add(pieza);
 		}
 	}
 }
