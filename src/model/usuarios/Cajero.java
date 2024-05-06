@@ -14,6 +14,7 @@ public class Cajero extends Empleado {
 	private ArrayList<Oferta> ofertasAceptadas;
 	
 	private ViewCajero viewCajero;
+	private Galeria galeria;
 	
 	/*
 	 * Constructor

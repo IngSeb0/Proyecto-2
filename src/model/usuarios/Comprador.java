@@ -1,15 +1,11 @@
 package model.usuarios;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import model.inventario.Pieza;
 import model.ventas.Consignacion;
 import model.ventas.Oferta;
 import model.ventas.Subasta;
-import model.ventas.Venta;
 import view.ViewComprador;
 
 public class Comprador extends Usuario {
@@ -140,17 +136,28 @@ public class Comprador extends Usuario {
 	}
 	
 	public void comprarPieza(String tipoPieza, String idPieza, int valorOferta, String peticion, String metodoPago) {
-		Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
-		Oferta oferta = new Oferta(pieza, this, valorOferta, peticion, metodoPago);
-		if (peticion != null) {
-			galeria.getAdminstrador().getOfertasARevisar().put(oferta.getIdOferta(), oferta);
-			oferta.getPieza().setPropietario(this);
-		} else {
-			galeria.getCajero().getOfertasAceptadas().add(oferta);
-			oferta.getPieza().setPropietario(this);
-		
-		
-		}
+	    Pieza pieza = galeria.getPiezaPorID(tipoPieza, idPieza);
+	    
+	    if (pieza != null) {
+	        Oferta oferta = new Oferta(pieza, this, valorOferta, peticion, metodoPago);
+	        
+	        if (peticion != null) {
+	            galeria.getAdminstrador().getOfertasARevisar().put(oferta.getPieza().getIdPieza(), oferta);
+	            if (oferta.getPieza() != null) {
+	                oferta.getPieza().setPropietario(this);
+	            }
+	        } else {
+	            galeria.getCajero().getOfertasAceptadas().add(oferta);
+	            if (oferta.getPieza() != null) {
+	                oferta.getPieza().setPropietario(this);
+	            }
+	        }
+	        
+	        // Llamar al método para registrar la historia de la pieza comprada
+	        galeria.registrarHistoriaPieza(idPieza, this.getNombre(), valorOferta, tipoPieza);
+	    }
 	}
+
+
 }
 

@@ -1,6 +1,7 @@
 package model.inventario;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Escultura extends Pieza implements Serializable {
 
@@ -21,8 +22,8 @@ public class Escultura extends Pieza implements Serializable {
 	 */
 
 	public Escultura(String idPieza, String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza,
-			String dimensiones, String peso, String materialesConstruccion, boolean requiereElectricidad) {
-		super(idPieza, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza);
+			String dimensiones, String peso, String materialesConstruccion, boolean requiereElectricidad, ArrayList<HashMap<String, Object>> historia) {
+		super(idPieza, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, historia);
 		this.dimensiones = dimensiones;
 		this.peso = peso;
 		this.materialesConstruccion = materialesConstruccion;

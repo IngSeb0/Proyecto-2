@@ -3,7 +3,6 @@ package view;
 import model.Galeria;
 import model.usuarios.Administrador;
 import model.usuarios.Comprador;
-import model.usuarios.Empleado;
 import model.usuarios.Usuario;
 
 public class ViewLogin extends View {

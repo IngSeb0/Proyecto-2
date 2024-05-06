@@ -1,10 +1,8 @@
 package model.usuarios;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 import model.Galeria;
-import model.inventario.Pieza;
 import view.ViewLogin;
 
 

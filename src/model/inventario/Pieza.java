@@ -1,6 +1,7 @@
 package model.inventario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.usuarios.Comprador;
 import model.ventas.Consignacion;
@@ -36,12 +37,12 @@ public abstract class Pieza implements Serializable {
     protected Comprador propietario;
     
     protected Consignacion consignacion;
-    
+    private ArrayList<HashMap<String, Object>> historia;
     /*
      * Constructor
      */
 
-    public Pieza(String idPieza, String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza) {
+    public Pieza(String idPieza, String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, ArrayList<HashMap<String, Object>> historia) {
     
     	this.idPieza = idPieza;
     	this.tipoPieza = tipoPieza;
@@ -51,6 +52,8 @@ public abstract class Pieza implements Serializable {
     	this.lugarCreacion = lugarCreacion;
     	this.nombreArtista = nombreArtista;
     	this.isDisponible = true;
+    	this.historia = historia;
+    	
     	
     		
     }
@@ -117,6 +120,15 @@ public abstract class Pieza implements Serializable {
 	public void setValorInicial(int valorInicial) {
 		this.valorInicial = valorInicial;
 	}
+	
+
+	public ArrayList<HashMap<String, Object>> getHistoria() {
+		return historia;
+	}
+
+	public void setHistoria(ArrayList<HashMap<String, Object>> historia) {
+		this.historia = historia;
+	}
 
 	public ArrayList<Artista> getArtistas() {
 		return artistas;
@@ -154,7 +166,9 @@ public abstract class Pieza implements Serializable {
 		this.valorActualSubasta = valorOferta;
 	}
 
-    
+	public String getFormato() {
+		return (idPieza + ";" + tipoPieza + ";" + ubicacion + ";" + tituloPieza + ";" + anioCreacion + ";" + lugarCreacion + ";" + nombreArtista + ";" + isDisponible);
+	}
 	
     
     

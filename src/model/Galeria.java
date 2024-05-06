@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -82,29 +83,31 @@ public class Galeria implements Serializable{
 	
 	public static void main(String[] args) {
 		
-		Galeria galeria = new Galeria();
+		Galeria galeria = new Galeria(true);
 	}
 	
-	public Galeria() {
+	public Galeria(boolean mostrarView) {
 	
-		
-		if (centralPersistencia.getGaleria() != null) {
-			
-			viewLogin.mostrarMenu();
-		} else {
-			piezasInventario.put("Escultura", (new HashMap<String, Pieza>()));
-			piezasInventario.put("Pintura", (new HashMap<String, Pieza>()));
-			piezasInventario.put("Impresión", (new HashMap<String, Pieza>()));
-			piezasInventario.put("Fotografía", (new HashMap<String, Pieza>()));
-			piezasInventario.put("Vídeos", (new HashMap<String, Pieza>()));
-//			centralPersistencia.guardarGaleria(this, "fichero.txt");
-			ViewLogin viewLogin= new ViewLogin(this);
-			setViewLogin(viewLogin);
-			ViewRegistro viewRegistro = new ViewRegistro(this);
-			setViewRegistro(viewRegistro);
-			viewRegistro.mostrarMenuUsuario("Administrador");
-		}
+	    if (centralPersistencia.getGaleria() != null) {
+	        if (mostrarView) {
+	            viewLogin.mostrarMenu();
+	        }
+	    } else {
+	        piezasInventario.put("Escultura", (new HashMap<String, Pieza>()));
+	        piezasInventario.put("Pintura", (new HashMap<String, Pieza>()));
+	        piezasInventario.put("Impresión", (new HashMap<String, Pieza>()));
+	        piezasInventario.put("Fotografía", (new HashMap<String, Pieza>()));
+	        piezasInventario.put("Vídeos", (new HashMap<String, Pieza>()));
+	        ViewLogin viewLogin = new ViewLogin(this);
+	        setViewLogin(viewLogin);
+	        ViewRegistro viewRegistro = new ViewRegistro(this);
+	        setViewRegistro(viewRegistro);
+	        if (mostrarView) {
+	            viewRegistro.mostrarMenuUsuario("Administrador");
+	        }
+	    }
 	}
+
 	
 	/*
 	 * Getters + Setters
@@ -133,7 +136,7 @@ public class Galeria implements Serializable{
 
 	public void setAdministrador(Administrador administrador) {
 		this.administrador = administrador;
-		administrador.setGaleria(this);
+	
 		addUsuario(administrador);
 	}
 
@@ -174,6 +177,7 @@ public class Galeria implements Serializable{
 	// Piezas inventario
 	public Pieza getPiezaPorID(String tipoPieza, String idPieza) {
         if (piezasInventario.containsKey(tipoPieza)) {
+        	
             HashMap<String, Pieza> piezasPorTipo = piezasInventario.get(tipoPieza);
             return piezasPorTipo.get(idPieza);
         }
@@ -318,19 +322,31 @@ public class Galeria implements Serializable{
         String password = "" + first + second + third + fourth + fifth;
 		return password;
 	}
-	public void ingresarPieza(Pieza pieza) {
-		String tipoPieza = pieza.getTipoPieza();
-		String idPieza = pieza.getIdPieza();
-		HashMap<String, Pieza> piezas = this.getPiezasInventario().get(tipoPieza);
-		piezas.put(idPieza, pieza);
-		this.getPiezasPasadas().add(pieza);
-		if (pieza.getCostoFijo() > 0) {
-			this.getPiezasDisponibles().add(pieza);
-		}
-		if(pieza.getUbicacion().equals("Bodega")) {
-			this.getPiezasBodega().add(pieza);
-		} else {
-			this.getPiezasExhibidas().add(pieza);
-		}
+	
+
+	public void registrarHistoriaPieza(String idPieza, String comprador, int precioVenta, String tipoPieza) {
+	    Pieza pieza = getPiezaPorID(tipoPieza, idPieza);
+	    if (pieza != null) {
+	        ArrayList<HashMap<String, Object>> historia = pieza.getHistoria();
+	        if (historia == null) {
+	            historia = new ArrayList<>();
+	        }
+	        
+	        // Crear un nuevo registro para la historia de la pieza vendida
+	        HashMap<String, Object> registro = new HashMap<>();
+	        registro.put("comprador", comprador);
+	        registro.put("precioVenta", precioVenta);
+	        registro.put("fechaVenta", LocalDate.now().toString()); // Obtener la fecha actual
+	        
+	        // Agregar el registro a la historia de la pieza
+	        historia.add(registro);
+	        
+	        // Actualizar la historia en la pieza
+	        pieza.setHistoria(historia);
+	    }
 	}
+
+
+    
+	
 }

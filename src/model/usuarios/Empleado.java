@@ -3,6 +3,7 @@ package model.usuarios;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.Galeria;
 import model.inventario.Pieza;
 import model.ventas.Oferta;
 import model.ventas.Subasta;
@@ -14,6 +15,7 @@ public class Empleado extends Usuario {
 	/*
 	 * Atributos
 	 */
+	private Galeria galeria;
 	
 	private Subasta subastaEnCurso;
 	
@@ -66,18 +68,23 @@ public class Empleado extends Usuario {
 	 */
 
 	public void registrarOfertasSubasta() {
-		Map<Pieza, Oferta> ofertasMasAltas = new HashMap<>();
-		for (Oferta oferta : subastaEnCurso.getOfertas()) {
-		Pieza pieza = oferta.getPieza();
-			if (!(ofertasMasAltas.containsKey(pieza)) || ofertasMasAltas.get(pieza).getValorOferta() < oferta.getValorOferta()) {
-				ofertasMasAltas.put(pieza, oferta);
-			}
-		}
-      
-        for (Oferta ofertaGanadora : ofertasMasAltas.values()) {
-            galeria.getAdminstrador().getOfertasARevisar().put(ofertaGanadora.getIdOferta(), ofertaGanadora);
-        }
+	    if (galeria != null && subastaEnCurso != null) {
+	        Map<Pieza, Oferta> ofertasMasAltas = new HashMap<>();
+	        for (Oferta oferta : subastaEnCurso.getOfertas()) {
+	            Pieza pieza = oferta.getPieza();
+	            if (!(ofertasMasAltas.containsKey(pieza)) || ofertasMasAltas.get(pieza).getValorOferta() < oferta.getValorOferta()) {
+	                ofertasMasAltas.put(pieza, oferta);
+	            }
+	        }
+	        
+	        if (galeria.getAdminstrador() != null) {
+	            for (Oferta ofertaGanadora : ofertasMasAltas.values()) {
+	                galeria.getAdminstrador().getOfertasARevisar().put(ofertaGanadora.getIdOferta(), ofertaGanadora);
+	            }
+	        }
+	    }
 	}
+
 		
 	
 	

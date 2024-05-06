@@ -3,6 +3,7 @@ package model.usuarios;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.Galeria;
 import model.inventario.Artista;
 import model.inventario.Escultura;
 import model.inventario.Fotografia;
@@ -24,6 +25,7 @@ public class Administrador extends Empleado {
 	private HashMap<String, Oferta> ofertasARevisar = new HashMap<String, Oferta>();
 	
 	private ArrayList<Consignacion> consignacionesARevisar = new ArrayList<Consignacion>();
+	private Galeria galeria;
 	
 	/*
 	 * Views
@@ -67,6 +69,9 @@ public class Administrador extends Empleado {
 	public ViewAdministrador getViewAdministrador() {
 		return viewAdministrador;
 	}
+	
+	
+
 
 
 	public void setViewAdministrador(ViewAdministrador viewAdministrador) {
@@ -76,15 +81,35 @@ public class Administrador extends Empleado {
 	/*
 	 * Métodos
 	 */
-	
+	public ArrayList<HashMap<String, Object>> verHistorialPieza(String idPieza, String tipoPieza) throws IllegalArgumentException {
+        // Obtener la pieza del inventario
+        Pieza pieza = galeria.getPiezasInventario().get(tipoPieza).get(idPieza);
+        
+        // Verificar que la pieza exista y tenga historial
+        if (pieza != null && pieza.getHistoria() != null) {
+            return pieza.getHistoria();
+        } else {
+            throw new IllegalArgumentException("La pieza no existe o no tiene historial.");
+        }
+    }
 	public void registrarEmpleado() {
 		galeria.getViewRegistro().mostrarMenuUsuario("Empleado");;
 	}
 	
 	public void ingresarPieza(Pieza pieza) {
-		
+		String tipoPieza = pieza.getTipoPieza();
+		String idPieza = pieza.getIdPieza();
+		HashMap<String, Pieza> piezas = galeria.getPiezasInventario().get(tipoPieza);
+		piezas.put(idPieza, pieza);
+		galeria.getPiezasPasadas().add(pieza);
+		if (pieza.getCostoFijo() > 0) {
+		galeria.getPiezasDisponibles().add(pieza);
+		}
+		if(pieza.getUbicacion().equals("Bodega")) {
+			galeria.getPiezasBodega().add(pieza);
+		} else {
 			galeria.getPiezasExhibidas().add(pieza);
-		
+		}
 	}
 	
 	
@@ -119,7 +144,7 @@ public class Administrador extends Empleado {
 
 	public String ingresarEscultura(String ubicacion, String tituloPieza, String anioCreacion,String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, String dimensiones, String peso, String materialesConstruccion, boolean requiereElectricidad) {
 		String idPieza = String.valueOf(galeria.getPiezasPasadas().size() + 1);
-		Escultura escultura = new Escultura(idPieza, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad);
+		Escultura escultura = new Escultura(idPieza, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, dimensiones, peso, materialesConstruccion, requiereElectricidad, null);
 		ingresarPieza(escultura);
 		return idPieza;
 	}
@@ -135,28 +160,28 @@ public class Administrador extends Empleado {
 
 	public String ingresarVideo(String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, int duracion, boolean paraMayoresDe18,String resolucion, int espacioEnMemoria) {
 		String idVideo= String.valueOf(galeria.getPiezasPasadas().size() + 1);
-		Video video= new Video(idVideo, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, duracion, paraMayoresDe18, resolucion, espacioEnMemoria);
+		Video video= new Video(idVideo, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, duracion, paraMayoresDe18, resolucion, espacioEnMemoria, null);
 		ingresarPieza(video);
 		return idVideo;
 	}
 	
 	public String ingresarFotografia(String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion,String nombreArtista, int costoFijo, String tipoPieza, int alto, int ancho, String tipoFotografia,String resolucionImagen){
 		String idFotografia = String.valueOf(galeria.getPiezasPasadas().size() + 1);
-		Fotografia fotografia= new Fotografia(idFotografia, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, alto, ancho, tipoFotografia, resolucionImagen);
+		Fotografia fotografia= new Fotografia(idFotografia, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, alto, ancho, tipoFotografia, resolucionImagen, null);
 		ingresarPieza(fotografia);
 		return idFotografia;
 	}
 	
 	public String ingresarImpresion(String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion,String nombreArtista, int costoFijo, String tipoPieza, String tipoHoja, int largo, int ancho){
 		String idImpresion = String.valueOf(galeria.getPiezasPasadas().size() + 1);
-		Impresion Impresion= new Impresion(idImpresion, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, tipoHoja, largo, ancho);
+		Impresion Impresion= new Impresion(idImpresion, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, tipoHoja, largo, ancho, null);
 		ingresarPieza(Impresion);
 		return idImpresion;
 	}
 	
 	public String ingresarPintura(String ubicacion, String tituloPieza, String anioCreacion, String lugarCreacion, String nombreArtista, int costoFijo, String tipoPieza, int largo, int ancho) {
 		String idPintura= String.valueOf(galeria.getPiezasPasadas().size() + 1);
-		Pintura pintura= new Pintura(idPintura, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, largo, ancho);
+		Pintura pintura= new Pintura(idPintura, ubicacion, tituloPieza, anioCreacion, lugarCreacion, nombreArtista, costoFijo, tipoPieza, largo, ancho, null);
 		ingresarPieza(pintura);
 		return idPintura;
 	}

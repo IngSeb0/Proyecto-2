@@ -78,6 +78,11 @@ public class Oferta implements Serializable{
 		return pieza;
 	}
 
+	public void setPieza(Pieza pieza) {
+		this.pieza = pieza;
+	}
+
+
 	public int getValorOferta() {
 		return valorOferta;
 	}

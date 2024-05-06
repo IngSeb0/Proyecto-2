@@ -36,6 +36,7 @@ public class ViewAdministrador extends View {
         System.out.println("6. Revisar consignaciones pendientes");
         System.out.println("7. Registrar empleado"); //DONE
         System.out.println("8. Configurar cajero"); //DONE
+        System.out.println("9. Ver Historial de pieza" );
         System.out.println("\n0. Cerrar sesión");
       
         String opcion = getInput("\nSelecciona una opción: ").trim();
@@ -64,7 +65,11 @@ public class ViewAdministrador extends View {
 			case "8":
 				configurarCajero();
 				break;
+			case "9":
+			    verHistorialPieza();
+			    break;
 			}
+			
 			mostrarMenu();
 		} else {
 			administrador.getGaleria().getViewLogin().mostrarMenu();	
@@ -350,8 +355,30 @@ public class ViewAdministrador extends View {
 		Empleado empleado = seleccionarEmpleado();
 		administrador.getGaleria().setCajero((Cajero) empleado);
 	}
+	public void verHistorialPieza() {
+	    System.out.println("--> 9. Ver historial de una pieza");
+	    String idPieza = getInput("Ingresa el ID de la pieza: ").trim();
+	    String tipoPieza = getInput("Ingresa el tipo de pieza (Escultura, Impresión, etc.): ").trim();
 
+	    // Obtener el historial de la pieza
+	    ArrayList<HashMap<String, Object>> historial = administrador.verHistorialPieza(idPieza, tipoPieza);
+
+	    // Imprimir el historial si existe
+	    if (historial != null) {
+	        System.out.println("Historial de la pieza:");
+	        for (HashMap<String, Object> registro : historial) {
+	            System.out.println("Comprador: " + registro.get("comprador"));
+	            System.out.println("Precio de venta: " + registro.get("precioVenta"));
+	            System.out.println("Fecha de venta: " + registro.get("fechaVenta"));
+	            System.out.println("-----------------------------------");
+	        }
+	    }
+	    else {
+            throw new IllegalArgumentException("La pieza no existe o no tiene historial.");
+	}
 }
+}
+
 	
 
 
