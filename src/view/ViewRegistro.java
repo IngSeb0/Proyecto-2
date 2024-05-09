@@ -1,9 +1,14 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import model.Galeria;
 import model.usuarios.Administrador;
 import model.usuarios.Comprador;
 import model.usuarios.Empleado;
+import model.ventas.Consignacion;
+import model.ventas.Oferta;
 
 	public class ViewRegistro extends View {
 	
@@ -67,7 +72,10 @@ import model.usuarios.Empleado;
 		case "Administrador":
 			String login = validarLogin();
 			String password = validarPassword();
-			Administrador administrador = new Administrador(nombre, apellido, cedula, login, password, tipoUsuario);
+	        HashMap<String, Oferta> ofertasARevisar = new HashMap<String,Oferta>();
+	        ArrayList<Consignacion> consignacionesARevisar = new ArrayList<Consignacion>();
+	      
+	        Administrador administrador = new Administrador("Nombre1", "Apellido1", "1234567890", "login1", "contraseña", "Administrador",  ofertasARevisar, consignacionesARevisar, galeria, null);
 			galeria.setAdministrador(administrador);
 			System.out.println("\nUsuario creado con éxito.");
 			ViewAdministrador viewAdministrador = new ViewAdministrador(administrador);

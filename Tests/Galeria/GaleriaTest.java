@@ -22,6 +22,7 @@ import model.inventario.Pieza;
 import model.usuarios.Administrador;
 import model.usuarios.Comprador;
 import model.usuarios.Empleado;
+import model.ventas.Consignacion;
 import model.ventas.Oferta;
 import model.ventas.Subasta;
 import model.inventario.Pieza;
@@ -33,6 +34,8 @@ public class GaleriaTest {
     private Galeria galeria;
     private Fotografia fotografia;
     private Impresion impresion;
+    private Administrador admin;
+    private Empleado operador;
 
 
 
@@ -42,8 +45,9 @@ public class GaleriaTest {
         comprador = new Comprador("Nombre", "Apellido", "1234567890", "login", "password", "Comprador");
 
         comprador.setGaleria(galeria);
-        Administrador admin = new Administrador("Nombre1", "Apellido1", "1234567890", "login1", "contraseña", "Administrador");
-        Empleado operador = new Empleado("Nombre1", "Apellido1", "1234567890", "login1", "contraseña", "Empleado");
+        HashMap<String, Oferta> ofertasARevisar = new HashMap<String,Oferta>();
+        ArrayList<Consignacion> consignacionesARevisar = new ArrayList<Consignacion>();
+        Administrador admin = new Administrador("Nombre1", "Apellido1", "1234567890", "login1", "contraseña", "Administrador",  ofertasARevisar, consignacionesARevisar, galeria, null);        operador = new Empleado("Nombre1", "Apellido1", "1234567890", "login1", "contraseña", "Empleado");
 
         subasta = new Subasta("FechaSubasta", operador , admin);
         admin.setGaleria(galeria);

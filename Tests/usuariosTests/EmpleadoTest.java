@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import model.Galeria;
 import model.inventario.Pintura;
 import model.usuarios.Administrador;
 import model.usuarios.Empleado;
+import model.ventas.Consignacion;
 import model.ventas.Oferta;
 import model.ventas.Subasta;
 
@@ -34,7 +36,10 @@ public class EmpleadoTest {
         galeria = new Galeria(false);
         
         empleado = new Empleado("NombreEmpleado", "ApellidoEmpleado", "1234567890", "loginEmpleado", "passwordEmpleado", "TipoEmpleado");
-        admin = new Administrador("NombreAdmin", "ApellidoAdmin", "1234567890", "loginAdmin", "cpasswordAdmin", "TipoAdmin");
+        HashMap<String, Oferta> ofertasARevisar = new HashMap<String,Oferta>();
+        ArrayList<Consignacion> consignacionesARevisar = new ArrayList<Consignacion>();
+        
+        Administrador admin = new Administrador("Nombre1", "Apellido1", "1234567890", "login1", "contraseña", "Administrador",  ofertasARevisar, consignacionesARevisar, galeria, null);
         subasta = new Subasta("FechaSubasta", empleado, admin);
         
         ofertas = new ArrayList<>();

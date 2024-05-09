@@ -37,14 +37,22 @@ public class Administrador extends Empleado {
 	 * Constructor 
 	 */
 
-	public Administrador(String nombre, String apellido,  String cedula, String login, String password, String tipoUsuario) {
-		super(nombre, apellido, cedula, login, password, tipoUsuario);
-	}
+	
 
 	/*
 	 * Gettters
 	 */
 	
+
+	public Administrador(String nombre, String apellido, String cedula, String login, String password,
+			String tipoUsuario, HashMap<String, Oferta> ofertasARevisar, ArrayList<Consignacion> consignacionesARevisar,
+			Galeria galeria, ViewAdministrador viewAdministrador) {
+		super(nombre, apellido, cedula, login, password, tipoUsuario);
+		this.ofertasARevisar = ofertasARevisar;
+		this.consignacionesARevisar = consignacionesARevisar;
+		this.galeria = galeria;
+		this.viewAdministrador = viewAdministrador;
+	}
 
 	public HashMap<String, Oferta> getOfertasARevisar() {
 		return ofertasARevisar;
